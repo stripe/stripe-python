@@ -7,9 +7,14 @@ native Python Decimal values. These tests verify both directions:
 - Response hydration: JSON string → Decimal
 """
 
+import json
 from decimal import Decimal
 
-from stripe._encode import _coerce_decimal_string, _coerce_v2_params
+from stripe._encode import (
+    _coerce_decimal_string,
+    _coerce_v2_params,
+    _make_suitable_for_json,
+)
 from stripe._stripe_object import StripeObject
 
 
@@ -86,6 +91,59 @@ class TestDecimalStringPrecision:
     def test_negative(self):
         assert _coerce_decimal_string(Decimal("-1.5"), encode=True) == "-1.5"
         assert _coerce_decimal_string("-1.5", encode=False) == Decimal("-1.5")
+
+
+class TestDecimalStringFixedPoint:
+    """The API rejects exponent notation, so values are encoded in fixed-point."""
+
+    def test_small_decimal(self):
+        assert (
+            _coerce_decimal_string(Decimal("0.0000001"), encode=True)
+            == "0.0000001"
+        )
+        assert (
+            _coerce_decimal_string(Decimal("1E-7"), encode=True) == "0.0000001"
+        )
+        assert (
+            _coerce_decimal_string(Decimal("-2.5E-7"), encode=True)
+            == "-0.00000025"
+        )
+
+    def test_decimal_with_positive_exponent(self):
+        assert _coerce_decimal_string(Decimal("1E+3"), encode=True) == "1000"
+
+    def test_small_float(self):
+        assert _coerce_decimal_string(0.00001, encode=True) == "0.00001"
+        assert _coerce_decimal_string(-2.5e-7, encode=True) == "-0.00000025"
+
+    def test_large_float(self):
+        assert _coerce_decimal_string(1e16, encode=True) == "10000000000000000"
+        assert (
+            _coerce_decimal_string(1.5e19, encode=True)
+            == "15000000000000000000"
+        )
+
+    def test_float_keeps_shortest_digits(self):
+        assert _coerce_decimal_string(0.1, encode=True) == "0.1"
+        assert (
+            _coerce_decimal_string(1e15, encode=True) == "1000000000000000.0"
+        )
+
+    def test_non_finite_unchanged(self):
+        assert _coerce_decimal_string(float("nan"), encode=True) == "nan"
+        assert _coerce_decimal_string(float("inf"), encode=True) == "inf"
+        assert _coerce_decimal_string(Decimal("NaN"), encode=True) == "NaN"
+
+    def test_list(self):
+        assert _coerce_decimal_string(
+            [Decimal("1E-7"), 1e16], encode=True
+        ) == ["0.0000001", "10000000000000000"]
+
+    def test_json_request_body(self):
+        body = json.dumps(
+            {"price": Decimal("1E-7")}, default=_make_suitable_for_json
+        )
+        assert body == '{"price": "0.0000001"}'
 
 
 class TestCoerceV2ParamsDecimalString:

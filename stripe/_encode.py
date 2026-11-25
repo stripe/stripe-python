@@ -1,5 +1,6 @@
 import calendar
 import datetime
+import math
 import time
 from collections import OrderedDict
 from decimal import Decimal
@@ -16,6 +17,13 @@ def _encode_datetime(dttime: datetime.datetime):
 
 
 def _encode_decimal(dec) -> str:
+    # str() uses exponent notation for small and large values (str(0.00001) is
+    # "1e-05" and str(Decimal("0.0000001")) is "1E-7"), which the API rejects.
+    if isinstance(dec, float) and math.isfinite(dec):
+        # repr() keeps the float's shortest round-trip digits, so 0.1 stays "0.1"
+        dec = Decimal(repr(dec))
+    if isinstance(dec, Decimal) and dec.is_finite():
+        return format(dec, "f")
     return str(dec)
 
 
