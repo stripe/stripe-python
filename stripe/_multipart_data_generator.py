@@ -68,7 +68,7 @@ class MultipartDataGenerator(object):
                 self._write('"')
                 self._write(self.line_break)
                 self._write(self.line_break)
-                self._write(str(value))
+                self._write(value if isinstance(value, bytes) else str(value))
 
             self._write(self.line_break)
 

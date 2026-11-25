@@ -4,11 +4,42 @@
 import random
 import re
 import io
+from email import policy
+from email.parser import BytesParser
+
+import pytest
 
 from stripe._multipart_data_generator import MultipartDataGenerator
 
 
 class TestMultipartDataGenerator(object):
+    @pytest.mark.parametrize(
+        "value",
+        [b"ASCII value", "Üñìçôdé value".encode("utf-8"), b"\x00\xff\r\n"],
+    )
+    def test_byte_field_preserves_contents(self, value):
+        generator = MultipartDataGenerator()
+        generator.add_params(
+            {
+                "metadata": {"value": value},
+                "file": io.BytesIO(b"file contents"),
+            }
+        )
+        message = BytesParser(policy=policy.default).parsebytes(
+            (
+                "Content-Type: multipart/form-data; boundary=%s\r\n\r\n"
+                % generator.boundary
+            ).encode("ascii")
+            + generator.get_post_data()
+        )
+        parts = list(message.iter_parts())
+        assert (
+            parts[0].get_param("name", header="content-disposition")
+            == "metadata[value]"
+        )
+        assert parts[0].get_payload(decode=True) == value
+        assert parts[1].get_payload(decode=True) == b"file contents"
+
     def run_test_multipart_data_with_file(self, test_file):
         params = {
             "key1": b"ASCII value",
