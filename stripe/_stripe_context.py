@@ -9,7 +9,7 @@ class StripeContext:
     """
 
     def __init__(self, segments: Optional[List[str]] = None):
-        self._segments = segments or []
+        self._segments = list(segments) if segments is not None else []
 
     def push(self, segment: str) -> "StripeContext":
         return StripeContext(self._segments + [segment])
