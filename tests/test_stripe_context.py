@@ -9,6 +9,28 @@ import pytest
 
 
 class TestStripeContext:
+    @pytest.mark.parametrize("replacement", [[], ["acct_other"]])
+    def test_constructor_copies_segments(self, replacement):
+        segments = ["acct_original", "acct_child"]
+        context = StripeContext(segments)
+        requestor = RequestorOptions(
+            api_key="sk_test_123", stripe_context=context
+        )
+
+        segments[:] = replacement
+
+        assert str(context) == "acct_original/acct_child"
+        assert context == StripeContext.parse("acct_original/acct_child")
+        assert (
+            str(context.push("acct_grandchild"))
+            == "acct_original/acct_child/acct_grandchild"
+        )
+        assert str(context.pop()) == "acct_original"
+        assert (
+            str(merge_options(requestor, None)["stripe_context"])
+            == "acct_original/acct_child"
+        )
+
     def test_init_empty(self):
         context = StripeContext()
         assert context._segments == []
