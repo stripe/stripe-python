@@ -734,7 +734,7 @@ class PaymentLinkCreateParamsOptionalItemAdjustableQuantity(TypedDict):
 
 class PaymentLinkCreateParamsPaymentIntentData(TypedDict):
     capture_method: NotRequired[
-        "Literal['automatic', 'automatic_async', 'manual']|str"
+        "Literal['']|Literal['automatic', 'automatic_async', 'manual']|str"
     ]
     """
     Controls when the funds will be captured from the customer's account.

@@ -30,6 +30,12 @@ if TYPE_CHECKING:
     from stripe.v2.core._account_token_service import (
         AccountTokenService as AccountTokenService,
     )
+    from stripe.v2.core._claimable_sandbox import (
+        ClaimableSandbox as ClaimableSandbox,
+    )
+    from stripe.v2.core._claimable_sandbox_service import (
+        ClaimableSandboxService as ClaimableSandboxService,
+    )
     from stripe.v2.core._event import Event as Event
     from stripe.v2.core._event_destination import (
         EventDestination as EventDestination,
@@ -52,6 +58,11 @@ _import_map = {
     "AccountService": ("stripe.v2.core._account_service", False),
     "AccountToken": ("stripe.v2.core._account_token", False),
     "AccountTokenService": ("stripe.v2.core._account_token_service", False),
+    "ClaimableSandbox": ("stripe.v2.core._claimable_sandbox", False),
+    "ClaimableSandboxService": (
+        "stripe.v2.core._claimable_sandbox_service",
+        False,
+    ),
     "Event": ("stripe.v2.core._event", False),
     "EventDestination": ("stripe.v2.core._event_destination", False),
     "EventDestinationService": (

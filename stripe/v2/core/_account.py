@@ -673,6 +673,51 @@ class Account(StripeObject):
                     """
                     _inner_class_types = {"status_details": StatusDetail}
 
+                class BilliePayments(StripeObject):
+                    class StatusDetail(StripeObject):
+                        code: Literal[
+                            "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
+                            "requirements_past_due",
+                            "requirements_pending_verification",
+                            "restricted_other",
+                            "unsupported_business",
+                            "unsupported_country",
+                            "unsupported_entity_type",
+                        ]
+                        """
+                        Machine-readable code explaining the reason for the Capability to be in its current status.
+                        """
+                        resolution: Literal[
+                            "contact_stripe", "no_resolution", "provide_info"
+                        ]
+                        """
+                        Machine-readable code explaining how to make the Capability active.
+                        """
+
+                    status: Literal[
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
+                    ]
+                    """
+                    The status of the Capability.
+                    """
+                    status_details: List[StatusDetail]
+                    """
+                    Additional details about the capability's status. This value is empty when `status` is `active`.
+                    """
+                    _inner_class_types = {"status_details": StatusDetail}
+
                 class BlikPayments(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
@@ -1483,6 +1528,51 @@ class Account(StripeObject):
                     """
                     _inner_class_types = {"status_details": StatusDetail}
 
+                class MbWayPayments(StripeObject):
+                    class StatusDetail(StripeObject):
+                        code: Literal[
+                            "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
+                            "requirements_past_due",
+                            "requirements_pending_verification",
+                            "restricted_other",
+                            "unsupported_business",
+                            "unsupported_country",
+                            "unsupported_entity_type",
+                        ]
+                        """
+                        Machine-readable code explaining the reason for the Capability to be in its current status.
+                        """
+                        resolution: Literal[
+                            "contact_stripe", "no_resolution", "provide_info"
+                        ]
+                        """
+                        Machine-readable code explaining how to make the Capability active.
+                        """
+
+                    status: Literal[
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
+                    ]
+                    """
+                    The status of the Capability.
+                    """
+                    status_details: List[StatusDetail]
+                    """
+                    Additional details about the capability's status. This value is empty when `status` is `active`.
+                    """
+                    _inner_class_types = {"status_details": StatusDetail}
+
                 class MobilepayPayments(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
@@ -1619,6 +1709,51 @@ class Account(StripeObject):
                     _inner_class_types = {"status_details": StatusDetail}
 
                 class NaverPayPayments(StripeObject):
+                    class StatusDetail(StripeObject):
+                        code: Literal[
+                            "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
+                            "requirements_past_due",
+                            "requirements_pending_verification",
+                            "restricted_other",
+                            "unsupported_business",
+                            "unsupported_country",
+                            "unsupported_entity_type",
+                        ]
+                        """
+                        Machine-readable code explaining the reason for the Capability to be in its current status.
+                        """
+                        resolution: Literal[
+                            "contact_stripe", "no_resolution", "provide_info"
+                        ]
+                        """
+                        Machine-readable code explaining how to make the Capability active.
+                        """
+
+                    status: Literal[
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
+                    ]
+                    """
+                    The status of the Capability.
+                    """
+                    status_details: List[StatusDetail]
+                    """
+                    Additional details about the capability's status. This value is empty when `status` is `active`.
+                    """
+                    _inner_class_types = {"status_details": StatusDetail}
+
+                class NzBankAccountBecsDebitPayments(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
@@ -1844,6 +1979,96 @@ class Account(StripeObject):
                     _inner_class_types = {"status_details": StatusDetail}
 
                 class PaynowPayments(StripeObject):
+                    class StatusDetail(StripeObject):
+                        code: Literal[
+                            "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
+                            "requirements_past_due",
+                            "requirements_pending_verification",
+                            "restricted_other",
+                            "unsupported_business",
+                            "unsupported_country",
+                            "unsupported_entity_type",
+                        ]
+                        """
+                        Machine-readable code explaining the reason for the Capability to be in its current status.
+                        """
+                        resolution: Literal[
+                            "contact_stripe", "no_resolution", "provide_info"
+                        ]
+                        """
+                        Machine-readable code explaining how to make the Capability active.
+                        """
+
+                    status: Literal[
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
+                    ]
+                    """
+                    The status of the Capability.
+                    """
+                    status_details: List[StatusDetail]
+                    """
+                    Additional details about the capability's status. This value is empty when `status` is `active`.
+                    """
+                    _inner_class_types = {"status_details": StatusDetail}
+
+                class PaypayPayments(StripeObject):
+                    class StatusDetail(StripeObject):
+                        code: Literal[
+                            "determining_status",
+                            "rejected_fraud",
+                            "rejected_incomplete_verification",
+                            "rejected_listed",
+                            "rejected_other",
+                            "rejected_platform_fraud",
+                            "rejected_platform_other",
+                            "rejected_platform_terms_of_service",
+                            "rejected_terms_of_service",
+                            "requirements_past_due",
+                            "requirements_pending_verification",
+                            "restricted_other",
+                            "unsupported_business",
+                            "unsupported_country",
+                            "unsupported_entity_type",
+                        ]
+                        """
+                        Machine-readable code explaining the reason for the Capability to be in its current status.
+                        """
+                        resolution: Literal[
+                            "contact_stripe", "no_resolution", "provide_info"
+                        ]
+                        """
+                        Machine-readable code explaining how to make the Capability active.
+                        """
+
+                    status: Literal[
+                        "active",
+                        "pending",
+                        "rejected",
+                        "restricted",
+                        "unsupported",
+                    ]
+                    """
+                    The status of the Capability.
+                    """
+                    status_details: List[StatusDetail]
+                    """
+                    Additional details about the capability's status. This value is empty when `status` is `active`.
+                    """
+                    _inner_class_types = {"status_details": StatusDetail}
+
+                class PixPayments(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
@@ -2518,6 +2743,10 @@ class Account(StripeObject):
                 """
                 Allow the merchant to process Bancontact payments.
                 """
+                billie_payments: Optional[BilliePayments]
+                """
+                Allow the merchant to process Billie payments.
+                """
                 blik_payments: Optional[BlikPayments]
                 """
                 Allow the merchant to process BLIK payments.
@@ -2590,6 +2819,10 @@ class Account(StripeObject):
                 """
                 Allow the merchant to process Link payments.
                 """
+                mb_way_payments: Optional[MbWayPayments]
+                """
+                Allow the merchant to process MB WAY payments.
+                """
                 mobilepay_payments: Optional[MobilepayPayments]
                 """
                 Allow the merchant to process MobilePay payments.
@@ -2605,6 +2838,12 @@ class Account(StripeObject):
                 naver_pay_payments: Optional[NaverPayPayments]
                 """
                 Allow the merchant to process Naver Pay payments.
+                """
+                nz_bank_account_becs_debit_payments: Optional[
+                    NzBankAccountBecsDebitPayments
+                ]
+                """
+                Allow the merchant to process New Zealand BECS Direct Debit payments.
                 """
                 oxxo_payments: Optional[OxxoPayments]
                 """
@@ -2625,6 +2864,14 @@ class Account(StripeObject):
                 paynow_payments: Optional[PaynowPayments]
                 """
                 Allow the merchant to process PayNow payments.
+                """
+                paypay_payments: Optional[PaypayPayments]
+                """
+                Allow the merchant to process PayPay payments.
+                """
+                pix_payments: Optional[PixPayments]
+                """
+                Allow the merchant to process Pix payments.
                 """
                 promptpay_payments: Optional[PromptpayPayments]
                 """
@@ -2688,6 +2935,7 @@ class Account(StripeObject):
                     "au_becs_debit_payments": AuBecsDebitPayments,
                     "bacs_debit_payments": BacsDebitPayments,
                     "bancontact_payments": BancontactPayments,
+                    "billie_payments": BilliePayments,
                     "blik_payments": BlikPayments,
                     "blik_recurring_payments": BlikRecurringPayments,
                     "boleto_payments": BoletoPayments,
@@ -2706,15 +2954,19 @@ class Account(StripeObject):
                     "konbini_payments": KonbiniPayments,
                     "kr_card_payments": KrCardPayments,
                     "link_payments": LinkPayments,
+                    "mb_way_payments": MbWayPayments,
                     "mobilepay_payments": MobilepayPayments,
                     "multibanco_payments": MultibancoPayments,
                     "mx_bank_transfer_payments": MxBankTransferPayments,
                     "naver_pay_payments": NaverPayPayments,
+                    "nz_bank_account_becs_debit_payments": NzBankAccountBecsDebitPayments,
                     "oxxo_payments": OxxoPayments,
                     "p24_payments": P24Payments,
                     "pay_by_bank_payments": PayByBankPayments,
                     "payco_payments": PaycoPayments,
                     "paynow_payments": PaynowPayments,
+                    "paypay_payments": PaypayPayments,
+                    "pix_payments": PixPayments,
                     "promptpay_payments": PromptpayPayments,
                     "revolut_pay_payments": RevolutPayPayments,
                     "samsung_pay_payments": SamsungPayPayments,
@@ -2773,11 +3025,78 @@ class Account(StripeObject):
                     """
                     _inner_class_types = {"hours": Hours}
 
+                additional_material: Optional[str]
+                """
+                Information provided to support the onboarding process for Konbini payments.
+                """
                 support: Optional[Support]
                 """
                 Support for Konbini payments.
                 """
                 _inner_class_types = {"support": Support}
+
+            class PaypayPayments(StripeObject):
+                class Site(StripeObject):
+                    class Accessible(StripeObject):
+                        pass
+
+                    class InDevelopment(StripeObject):
+                        password_provided: bool
+                        """
+                        Whether a password needed to access the business's website has been provided.
+                        """
+                        username: Optional[str]
+                        """
+                        The username needed to access the business's website.
+                        """
+
+                    class Restricted(StripeObject):
+                        payment_flow_file: Optional[str]
+                        """
+                        The file explaining the payment flow for the business.
+                        """
+
+                    accessible: Optional[Accessible]
+                    """
+                    Additional information about the business's website when it's accessible.
+                    """
+                    in_development: Optional[InDevelopment]
+                    """
+                    Additional information about the business's website when it's in development.
+                    """
+                    restricted: Optional[Restricted]
+                    """
+                    Additional information about the business's website when it has restricted access.
+                    """
+                    type: Optional[
+                        Literal["accessible", "in_development", "restricted"]
+                    ]
+                    """
+                    The status of the business's website.
+                    """
+                    _inner_class_types = {
+                        "accessible": Accessible,
+                        "in_development": InDevelopment,
+                        "restricted": Restricted,
+                    }
+
+                additional_files: List[str]
+                """
+                Additional files supporting PayPay payments configuration.
+                """
+                goods_type: Optional[Literal["digital_content", "other"]]
+                """
+                The type of goods sold by the merchant for PayPay payments.
+                """
+                site: Optional[Site]
+                """
+                The business's website for PayPay payments.
+                """
+                specified_commercial_transactions_act_url: Optional[str]
+                """
+                URL to the Specified Commercial Transactions Act page for PayPay payments.
+                """
+                _inner_class_types = {"site": Site}
 
             class ScriptStatementDescriptor(StripeObject):
                 class Kana(StripeObject):
@@ -2903,6 +3222,10 @@ class Account(StripeObject):
             """
             The Merchant Category Code (MCC) for the merchant. MCCs classify businesses based on the goods or services they provide.
             """
+            paypay_payments: Optional[PaypayPayments]
+            """
+            Settings for PayPay payments.
+            """
             script_statement_descriptor: Optional[ScriptStatementDescriptor]
             """
             Settings for the default text that appears on statements for language variations.
@@ -2925,6 +3248,7 @@ class Account(StripeObject):
                 "capabilities": Capabilities,
                 "card_payments": CardPayments,
                 "konbini_payments": KonbiniPayments,
+                "paypay_payments": PaypayPayments,
                 "script_statement_descriptor": ScriptStatementDescriptor,
                 "sepa_debit_payments": SepaDebitPayments,
                 "statement_descriptor": StatementDescriptor,
@@ -3525,11 +3849,11 @@ class Account(StripeObject):
                 ]
             ]
             """
-            Indicates whether the platform or connected account is responsible for paying Stripe fees for pricing-control-eligible products.
+            Controls who pays Stripe fees for direct charges and other pricing-control-eligible Stripe products. For new integrations, setting `losses_collector=application` requires `fees_collector=application`; legacy Custom and Express accounts can also use `application_custom` or `application_express`. For destination charges and separate charges and transfers, Stripe bills the platform regardless of this setting. Learn more about [fee behavior on connected accounts](https://docs.stripe.com/connect/direct-charges-fee-payer-behavior), including application fees and pricing considerations.
             """
             losses_collector: Optional[Literal["application", "stripe"]]
             """
-            A value indicating the responsibility for losses on this account.
+            Controls who is responsible for payment-related negative balances on this account. The platform remains liable for negative balances on its own account. To use Stripe negative balance liability, your integration must meet [Managed Risk requirements](https://docs.stripe.com/connect/risk-management/managed-risk).
             """
             requirements_collector: Literal["application", "stripe"]
             """
@@ -3997,6 +4321,7 @@ class Account(StripeObject):
                             "bank_accounts.sepa",
                             "bank_accounts.swift",
                             "bank_accounts.wire",
+                            "billie_payments",
                             "blik_payments",
                             "blik_recurring_payments",
                             "boleto_payments",
@@ -4016,15 +4341,19 @@ class Account(StripeObject):
                             "konbini_payments",
                             "kr_card_payments",
                             "link_payments",
+                            "mb_way_payments",
                             "mobilepay_payments",
                             "multibanco_payments",
                             "mx_bank_transfer_payments",
                             "naver_pay_payments",
+                            "nz_bank_account_becs_debit_payments",
                             "oxxo_payments",
                             "p24_payments",
                             "payco_payments",
                             "paynow_payments",
+                            "paypay_payments",
                             "pay_by_bank_payments",
+                            "pix_payments",
                             "promptpay_payments",
                             "revolut_pay_payments",
                             "samsung_pay_payments",
@@ -5822,6 +6151,7 @@ class Account(StripeObject):
                             "bank_accounts.sepa",
                             "bank_accounts.swift",
                             "bank_accounts.wire",
+                            "billie_payments",
                             "blik_payments",
                             "blik_recurring_payments",
                             "boleto_payments",
@@ -5841,15 +6171,19 @@ class Account(StripeObject):
                             "konbini_payments",
                             "kr_card_payments",
                             "link_payments",
+                            "mb_way_payments",
                             "mobilepay_payments",
                             "multibanco_payments",
                             "mx_bank_transfer_payments",
                             "naver_pay_payments",
+                            "nz_bank_account_becs_debit_payments",
                             "oxxo_payments",
                             "p24_payments",
                             "payco_payments",
                             "paynow_payments",
+                            "paypay_payments",
                             "pay_by_bank_payments",
+                            "pix_payments",
                             "promptpay_payments",
                             "revolut_pay_payments",
                             "samsung_pay_payments",
@@ -6014,7 +6348,7 @@ class Account(StripeObject):
     """
     dashboard: Optional[Literal["express", "full", "none"]]
     """
-    A value indicating the Stripe dashboard this Account has access to. This will depend on which configurations are enabled for this account.
+    Specifies the account's Stripe-hosted Dashboard access. Available values depend on the configurations enabled for the account. Learn more about [configuring Dashboard access](https://docs.stripe.com/connect/accounts-v2/connected-account-configuration#set-dashboard-access).
     """
     defaults: Optional[Defaults]
     """

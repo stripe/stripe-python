@@ -88,7 +88,7 @@ class SessionCreateParamsFilters(TypedDict):
     """
     country: NotRequired[str]
     """
-    Country from which to collect accounts.
+    Country from which to collect accounts. Supported values are `US` and `CA`.
     """
     require_payment_method_support: NotRequired[
         Literal["all", "at_least_one", "none"]

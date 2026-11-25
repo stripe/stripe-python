@@ -43930,6 +43930,7 @@ class TestGeneratedExamples(object):
             {
                 "account": "account",
                 "use_case": {
+                    "account_dashboard": {"refresh_url": "refresh_url"},
                     "account_onboarding": {
                         "collection_options": {
                             "fields": "eventually_due",
@@ -43946,7 +43947,7 @@ class TestGeneratedExamples(object):
                         "refresh_url": "refresh_url",
                         "return_url": "return_url",
                     },
-                    "type": "account_onboarding",
+                    "type": "account_dashboard",
                 },
             }
         )
@@ -43955,7 +43956,7 @@ class TestGeneratedExamples(object):
             path="/v2/core/account_links",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"account":"account","use_case":{"account_onboarding":{"collection_options":{"fields":"eventually_due","future_requirements":"include"},"refresh_url":"refresh_url","return_url":"return_url"},"account_update":{"collection_options":{"fields":"eventually_due","future_requirements":"include"},"refresh_url":"refresh_url","return_url":"return_url"},"type":"account_onboarding"}}',
+            post_data='{"account":"account","use_case":{"account_dashboard":{"refresh_url":"refresh_url"},"account_onboarding":{"collection_options":{"fields":"eventually_due","future_requirements":"include"},"refresh_url":"refresh_url","return_url":"return_url"},"account_update":{"collection_options":{"fields":"eventually_due","future_requirements":"include"},"refresh_url":"refresh_url","return_url":"return_url"},"type":"account_dashboard"}}',
             is_json=True,
         )
 
@@ -43999,6 +44000,83 @@ class TestGeneratedExamples(object):
             path="/v2/core/account_tokens/id_123",
             query_string="",
             api_base="https://api.stripe.com",
+        )
+
+    def test_v2_core_claimable_sandbox_post_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/core/claimable_sandboxes",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.core.claimable_sandboxes.create(
+            {
+                "enable_mcp_access": True,
+                "onboarding_link_details": {
+                    "refresh_url": "refresh_url",
+                    "return_url": "return_url",
+                },
+                "prefill": {
+                    "country": "country",
+                    "email": "email",
+                    "name": "name",
+                },
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/core/claimable_sandboxes",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data='{"enable_mcp_access":true,"onboarding_link_details":{"refresh_url":"refresh_url","return_url":"return_url"},"prefill":{"country":"country","email":"email","name":"name"}}',
+            is_json=True,
+        )
+
+    def test_v2_core_claimable_sandbox_get_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/core/claimable_sandboxes/id_123",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.core.claimable_sandboxes.retrieve("id_123")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/core/claimable_sandboxes/id_123",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_v2_core_claimable_sandbox_post_2_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/core/claimable_sandboxes/id_123/renew_onboarding_link",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.core.claimable_sandboxes.renew_onboarding_link("id_123")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/core/claimable_sandboxes/id_123/renew_onboarding_link",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="{}",
+            is_json=True,
         )
 
     def test_v2_core_event_get_service(

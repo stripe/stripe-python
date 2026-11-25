@@ -102,6 +102,8 @@ class SessionService(StripeService):
     ) -> "Session":
         """
         Creates a Checkout Session object.
+
+        Validate requests on your server and protect your application's Session-creation endpoint with access controls and limits on repeated creation. See [Protect your Session-creation endpoint](https://docs.stripe.com/payments/accept-a-payment?payment-ui=elements&api-integration=checkout#protect-session-creation).
         """
         return cast(
             "Session",
@@ -121,6 +123,8 @@ class SessionService(StripeService):
     ) -> "Session":
         """
         Creates a Checkout Session object.
+
+        Validate requests on your server and protect your application's Session-creation endpoint with access controls and limits on repeated creation. See [Protect your Session-creation endpoint](https://docs.stripe.com/payments/accept-a-payment?payment-ui=elements&api-integration=checkout#protect-session-creation).
         """
         return cast(
             "Session",
