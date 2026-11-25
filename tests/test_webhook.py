@@ -1,3 +1,4 @@
+import json
 import time
 from hashlib import sha256
 
@@ -78,6 +79,27 @@ def _build_header_with_signature(
     )
 
 
+def overwrite_payload_during_verification(monkeypatch, buffer, replacement):
+    """
+    Makes the signature computation overwrite `buffer` in place, as if another
+    thread had mutated the caller's request body mid-verification, and still
+    return the real signature over the original contents.
+    """
+    assert len(replacement) == len(buffer)
+    compute_signature = WebhookSignature._compute_signature
+
+    def compute_then_overwrite(payload, secret):
+        signature = compute_signature(payload, secret)
+        buffer[:] = replacement.encode("utf-8")
+        return signature
+
+    monkeypatch.setattr(
+        WebhookSignature,
+        "_compute_signature",
+        staticmethod(compute_then_overwrite),
+    )
+
+
 class TestWebhook(object):
     def test_construct_event(self):
         header = generate_header()
@@ -116,6 +138,36 @@ class TestWebhook(object):
             payload, header, DUMMY_WEBHOOK_SECRET
         )
         assert isinstance(event, stripe.Event)
+
+    def test_construct_event_ignores_payload_mutated_during_verification(
+        self, monkeypatch
+    ):
+        header = generate_header()
+        payload = bytearray(DUMMY_WEBHOOK_PAYLOAD, "utf-8")
+        overwrite_payload_during_verification(
+            monkeypatch,
+            payload,
+            DUMMY_WEBHOOK_PAYLOAD.replace(
+                "evt_test_webhook", "evt_test_webhoox"
+            ),
+        )
+        event = stripe.Webhook.construct_event(
+            payload, header, DUMMY_WEBHOOK_SECRET
+        )
+        assert event.id == "evt_test_webhook"
+
+    def test_construct_event_rejects_payload_that_was_never_signed(self):
+        header = generate_header()
+        payload = bytearray(
+            DUMMY_WEBHOOK_PAYLOAD.replace(
+                "evt_test_webhook", "evt_test_webhoox"
+            ),
+            "utf-8",
+        )
+        with pytest.raises(SignatureVerificationError):
+            stripe.Webhook.construct_event(
+                payload, header, DUMMY_WEBHOOK_SECRET
+            )
 
     @pytest.mark.parametrize("secret", [None, ""])
     def test_raise_on_missing_secret(self, secret):
@@ -536,3 +588,48 @@ class TestStripeClientConstructEvent(object):
             stripe_account="acct_777",
             stripe_version="2222-22-22",
         )
+
+
+THIN_EVENT_PAYLOAD = json.dumps(
+    {
+        "id": "evt_234",
+        "object": "v2.core.event",
+        "type": "v1.billing.meter.error_report_triggered",
+        "livemode": True,
+        "created": "2022-02-15T00:27:45.330Z",
+        "related_object": {
+            "id": "mtr_123",
+            "type": "billing.meter",
+            "url": "/v1/billing/meters/mtr_123",
+        },
+    }
+)
+
+
+class TestStripeClientParseEventNotification(object):
+    def test_parse_event_notification_ignores_payload_mutated_during_verification(
+        self, stripe_mock_stripe_client, monkeypatch
+    ):
+        header = generate_header(payload=THIN_EVENT_PAYLOAD)
+        payload = bytearray(THIN_EVENT_PAYLOAD, "utf-8")
+        overwrite_payload_during_verification(
+            monkeypatch,
+            payload,
+            THIN_EVENT_PAYLOAD.replace("evt_234", "evt_567"),
+        )
+        notification = stripe_mock_stripe_client.parse_event_notification(
+            payload, header, DUMMY_WEBHOOK_SECRET
+        )
+        assert notification.id == "evt_234"
+
+    def test_parse_event_notification_rejects_payload_that_was_never_signed(
+        self, stripe_mock_stripe_client
+    ):
+        header = generate_header(payload=THIN_EVENT_PAYLOAD)
+        payload = bytearray(
+            THIN_EVENT_PAYLOAD.replace("evt_234", "evt_567"), "utf-8"
+        )
+        with pytest.raises(SignatureVerificationError):
+            stripe_mock_stripe_client.parse_event_notification(
+                payload, header, DUMMY_WEBHOOK_SECRET
+            )

@@ -32,6 +32,7 @@ from stripe._webhook import (
     Webhook,
     WebhookPayload,
     WebhookSignature,
+    _decode_payload,
     maybe_extract_from_cloud_provider_envelope,
 )
 from stripe._event import Event
@@ -262,11 +263,12 @@ class StripeClient(object):
         """Constructs a [thin event notification](https://docs.stripe.com/event-destinations#thin-payload) from an incoming webhook after verifying its authenticity. To work with a webhook that has already been verified (i.e. one from a cloud provider, an asynchronous queue, or during testing), see `parse_event_notification_without_verification`.
 
         `sig_header` and `secret` are only marked as `Optional` so they play nicely with the types commonly returned from web frameworks. This raises a `SignatureVerificationError` if either is missing."""
-        WebhookSignature.verify_header(raw, sig_header, secret, tolerance)
+        decoded = _decode_payload(raw)
+        WebhookSignature.verify_header(decoded, sig_header, secret, tolerance)
 
         return cast(
             "ALL_EVENT_NOTIFICATIONS",
-            EventNotification.from_json(raw, self),
+            EventNotification.from_json(decoded, self),
         )
 
     def parse_event_notification_without_verification(
