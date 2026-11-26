@@ -346,10 +346,8 @@ class StripeObject:
     # string
     def __setstate__(self, state: Union[Dict[str, Any], _PickleState]) -> None:
         if isinstance(state, tuple):
-            from stripe._api_requestor import _APIRequestor  # pyright: ignore[reportPrivateUsage]
-
             data, self._retrieve_params, scope = state
-            self._requestor = _APIRequestor._global_with_saved_scope(  # pyright: ignore[reportPrivateUsage]
+            self._requestor = self._requestor._global_with_saved_scope(  # pyright: ignore[reportPrivateUsage]
                 API_KEY_SERIALIZATION_CONSTANT, scope
             )
             self._restored_scope_is_explicit = True
