@@ -43,6 +43,11 @@ BINARY_ENCODERS = [
 ]
 
 
+def _require_stripe_object(value: object) -> stripe.StripeObject:
+    assert isinstance(value, stripe.StripeObject)
+    return value
+
+
 class TestV2Event(object):
     def test_pickled_event_requires_reattachment(
         self, http_client_mock, v2_payload_no_data
@@ -121,8 +126,8 @@ class TestV2Event(object):
             V2CoreAccountPersonUpdatedEvent.V2CoreAccountPersonUpdatedEventData,
         )
         assert event.reason is not None
-        assert event.reason.request is not None
-        for child in (event, event.data, event.reason.request):
+        request = _require_stripe_object(event.reason.request)
+        for child in (event, event.data, request):
             assert child.stripe_account is None
             assert child._requestor._options.stripe_context == "acct_event"
 
@@ -158,8 +163,7 @@ class TestV2Event(object):
             api_mode="V2",
         )
         assert event.reason is not None
-        assert event.reason.request is not None
-        expected = [event, event.reason.request]
+        expected = [event, _require_stripe_object(event.reason.request)]
         if partial:
             assert event.related_object is original_related_object
             expected.append(event.related_object)
@@ -174,8 +178,7 @@ class TestV2Event(object):
             json.loads(v2_payload_no_data), "sk_test_1234", api_mode="V2"
         )
         assert event.reason is not None
-        request = event.reason.request
-        assert request is not None
+        request = _require_stripe_object(event.reason.request)
         request._requestor = request._requestor.with_stripe_context(
             "acct_independent"
         )
@@ -184,7 +187,8 @@ class TestV2Event(object):
             {"context": "acct_new"}, partial=True, api_mode="V2"
         )
 
-        assert event.reason._requestor._options.stripe_context == "acct_new"
+        reason = _require_stripe_object(event.reason)
+        assert reason._requestor._options.stripe_context == "acct_new"
         assert request._requestor._options.stripe_context == "acct_independent"
 
     @pytest.fixture(scope="function")
