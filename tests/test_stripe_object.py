@@ -637,7 +637,10 @@ class TestStripeObject(object):
             stripe_context="acct_saved",
         )
 
-    def test_legacy_pickle_remains_readable(self, http_client_mock):
+    @pytest.mark.parametrize("saved_version", [None, "2017-08-15"])
+    def test_legacy_pickle_remains_readable(
+        self, http_client_mock, monkeypatch, saved_version
+    ):
         class LegacyCustomerPickle:
             def __reduce__(self):
                 return (
@@ -645,12 +648,13 @@ class TestStripeObject(object):
                     (
                         "resource",
                         API_KEY_SERIALIZATION_CONSTANT,
-                        "2017-08-15",
+                        saved_version,
                         "acct_saved",
                     ),
                     {"id": "resource", "object": "customer"},
                 )
 
+        monkeypatch.setattr(stripe, "api_version", None)
         restored = pickle.loads(pickle.dumps(LegacyCustomerPickle()))
         with pytest.raises(
             stripe.AuthenticationError, match="reattach_api_key"
@@ -658,6 +662,7 @@ class TestStripeObject(object):
             restored.refresh()
         http_client_mock.assert_no_request()
 
+        monkeypatch.setattr(stripe, "api_version", "2018-02-28")
         restored.reattach_api_key("worker-key-sentinel")
         http_client_mock.stub_request(
             "get",
@@ -670,7 +675,7 @@ class TestStripeObject(object):
             path="/v1/customers/resource",
             api_key="worker-key-sentinel",
             stripe_account="acct_saved",
-            stripe_version="2017-08-15",
+            stripe_version=saved_version or "2018-02-28",
         )
 
     def test_restored_save_uses_reattached_api_key(

@@ -130,6 +130,7 @@ class StripeObject:
         self._unsaved_values: Set[str] = set()
         self._transient_values: Set[str] = set()
         self._last_response = last_response
+        self._restored_scope_is_explicit = False
 
         self._retrieve_params = params
         self._previous = None
@@ -189,10 +190,19 @@ class StripeObject:
             seen.add(id(value))
             if isinstance(value, StripeObject):
                 if value.api_key == API_KEY_SERIALIZATION_CONSTANT:
-                    value._requestor = _APIRequestor._global_with_saved_scope(  # pyright: ignore[reportPrivateUsage]
-                        api_key,
-                        value._requestor._saved_request_scope(),  # pyright: ignore[reportPrivateUsage]
-                    )
+                    if value._restored_scope_is_explicit:
+                        value._requestor = (
+                            _APIRequestor._global_with_saved_scope(  # pyright: ignore[reportPrivateUsage]
+                                api_key,
+                                value._requestor._saved_request_scope(),  # pyright: ignore[reportPrivateUsage]
+                            )
+                        )
+                    else:
+                        value._requestor = _APIRequestor._global_with_options(  # pyright: ignore[reportPrivateUsage]
+                            api_key=api_key,
+                            stripe_version=value.stripe_version,
+                            stripe_account=value.stripe_account,
+                        )
                 for nested in value._data.values():
                     reattach(nested)
             elif isinstance(value, dict):
@@ -342,6 +352,7 @@ class StripeObject:
             self._requestor = _APIRequestor._global_with_saved_scope(  # pyright: ignore[reportPrivateUsage]
                 API_KEY_SERIALIZATION_CONSTANT, scope
             )
+            self._restored_scope_is_explicit = True
         else:
             data = state
         self._data.update(data)
