@@ -184,11 +184,16 @@ class StripeObject:
 
         seen: Set[int] = set()
 
-        def reattach(value: Any) -> None:
+        def reattach(
+            value: Any, event: Optional["StripeObject"] = None
+        ) -> None:
             if id(value) in seen:
                 return
             seen.add(id(value))
             if isinstance(value, StripeObject):
+                object_name = getattr(type(value), "OBJECT_NAME", None)
+                if object_name == "v2.core.event":
+                    event = value
                 if value.api_key == API_KEY_SERIALIZATION_CONSTANT:
                     if value._restored_scope_is_explicit:
                         value._requestor = (
@@ -203,14 +208,33 @@ class StripeObject:
                             stripe_version=value.stripe_version,
                             stripe_account=value.stripe_account,
                         )
+                    if event is not None and (
+                        value is event
+                        or (
+                            not value._restored_scope_is_explicit
+                            and object_name
+                            not in (
+                                "list",
+                                "search_result",
+                                "v2.search_result",
+                            )
+                            and value._requestor.stripe_context is None
+                            and value.stripe_account is None
+                        )
+                    ):
+                        value._requestor = (
+                            value._requestor.with_stripe_context(
+                                event._data.get("context")
+                            )
+                        )
                 for nested in value._data.values():
-                    reattach(nested)
+                    reattach(nested, event)
             elif isinstance(value, dict):
                 for nested in cast(Dict[Any, Any], value).values():
-                    reattach(nested)
+                    reattach(nested, event)
             elif isinstance(value, (list, tuple)):
                 for nested in cast(Union[List[Any], Tuple[Any, ...]], value):
-                    reattach(nested)
+                    reattach(nested, event)
 
         reattach(self)
 
@@ -399,16 +423,33 @@ class StripeObject:
     ) -> Self:
         from stripe._api_requestor import _APIRequestor  # pyright: ignore[reportPrivateUsage]
 
+        requestor = _APIRequestor._global_with_options(  # pyright: ignore[reportPrivateUsage]
+            api_key=key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+        )
         return cls._construct_from(
             values=values,
-            requestor=_APIRequestor._global_with_options(  # pyright: ignore[reportPrivateUsage]
-                api_key=key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
-            ),
+            requestor=cls._requestor_for_event_context(requestor, values),
             api_mode=api_mode,
             last_response=last_response,
         )
+
+    @classmethod
+    def _requestor_for_event_context(
+        cls,
+        requestor: "_APIRequestor",
+        values: "Union[Mapping[str, Any], StripeObject]",
+        default_context: Optional[str] = None,
+    ) -> "_APIRequestor":
+        # Select scope before dispatching to generated event constructors,
+        # which may build their typed data children with this same requestor.
+        if getattr(cls, "OBJECT_NAME", None) == "v2.core.event":
+            raw = values._data if isinstance(values, StripeObject) else values
+            return requestor.with_stripe_context(
+                raw.get("context", default_context)
+            )
+        return requestor
 
     @classmethod
     def _construct_from(
@@ -444,19 +485,59 @@ class StripeObject:
         *,
         api_mode: ApiMode = "V1",
     ) -> None:
+        previous_requestor = self._requestor
+        requestor = previous_requestor._new_requestor_with_options(  # pyright: ignore[reportPrivateUsage]
+            {
+                "api_key": api_key,
+                "stripe_version": stripe_version,
+                "stripe_account": stripe_account,
+            }
+        )
+        requestor = self._requestor_for_event_context(
+            requestor,
+            values,
+            default_context=self._data.get("context") if partial else None,
+        )
         self._refresh_from(
             values=values,
             partial=partial,
             last_response=last_response,
-            requestor=self._requestor._new_requestor_with_options(  # pyright: ignore[reportPrivateUsage]
-                {
-                    "api_key": api_key,
-                    "stripe_version": stripe_version,
-                    "stripe_account": stripe_account,
-                }
-            ),
+            requestor=requestor,
             api_mode=api_mode,
         )
+        if (
+            partial
+            and getattr(type(self), "OBJECT_NAME", None) == "v2.core.event"
+        ):
+            self._rescope_retained_event_children(
+                previous_requestor, requestor
+            )
+
+    def _rescope_retained_event_children(
+        self, previous_requestor: "_APIRequestor", requestor: "_APIRequestor"
+    ) -> None:
+        # A partial refresh keeps untouched children. Respect children that
+        # already use a requestor of their own.
+        seen = {id(self)}
+
+        def rescope(value: Any) -> None:
+            if id(value) in seen:
+                return
+            seen.add(id(value))
+            if isinstance(value, StripeObject):
+                if value._requestor is previous_requestor:
+                    value._requestor = requestor
+                    for nested in value._data.values():
+                        rescope(nested)
+            elif isinstance(value, dict):
+                for nested in cast(Dict[Any, Any], value).values():
+                    rescope(nested)
+            elif isinstance(value, (list, tuple)):
+                for nested in cast(Union[List[Any], Tuple[Any, ...]], value):
+                    rescope(nested)
+
+        for nested in self._data.values():
+            rescope(nested)
 
     def _refresh_from(
         self,

@@ -20,6 +20,9 @@ from stripe.events._v1_product_updated_event import (
     V1ProductUpdatedEvent,
     V1ProductUpdatedEventNotification,
 )
+from stripe.events._v2_core_account_person_updated_event import (
+    V2CoreAccountPersonUpdatedEvent,
+)
 from stripe.v2.core._event import (
     EventNotification,
     RelatedSingletonObject,
@@ -45,7 +48,9 @@ class TestV2Event(object):
         self, http_client_mock, v2_payload_no_data
     ):
         event = V1BillingMeterErrorReportTriggeredEvent.construct_from(
-            json.loads(v2_payload_no_data), "producer-key-sentinel"
+            json.loads(v2_payload_no_data),
+            "producer-key-sentinel",
+            stripe_account="acct_retrieving",
         )
         restored = pickle.loads(pickle.dumps(event))
         with pytest.raises(
@@ -54,6 +59,13 @@ class TestV2Event(object):
             restored.fetch_related_object()
         http_client_mock.assert_no_request()
         restored.reattach_api_key("worker-key-sentinel")
+        assert restored.stripe_account is None
+        assert restored._requestor._options.stripe_context == "acct_123"
+        assert restored.reason.request.stripe_account is None
+        assert (
+            restored.reason.request._requestor._options.stripe_context
+            == "acct_123"
+        )
         http_client_mock.stub_request(
             "get",
             path="/v1/billing/meters/mtr_123",
@@ -66,6 +78,114 @@ class TestV2Event(object):
             api_key="worker-key-sentinel",
             stripe_context="acct_123",
         )
+
+    @pytest.mark.parametrize("retrieve", [True, False])
+    def test_full_event_scopes_children_before_hydration(
+        self, http_client_mock: HTTPClientMock, retrieve
+    ):
+        data = {
+            "id": "evt_123",
+            "object": "v2.core.event",
+            "type": "v2.core.account_person.updated",
+            "context": "acct_event",
+            "data": {"account_id": "acct_event"},
+            "reason": {
+                "type": "request",
+                "request": {"id": "req_123", "idempotency_key": "key_123"},
+            },
+        }
+        if retrieve:
+            http_client_mock.stub_request(
+                "get",
+                path="/v2/core/events/evt_123",
+                rbody=json.dumps(data),
+            )
+            client = StripeClient(
+                api_key="sk_test_1234",
+                stripe_account="acct_retrieving",
+                stripe_context="acct_previous_context",
+                http_client=http_client_mock.get_mock_http_client(),
+            )
+            event = client.v2.core.events.retrieve("evt_123")
+        else:
+            event = V2CoreAccountPersonUpdatedEvent.construct_from(
+                data,
+                "sk_test_1234",
+                stripe_account="acct_retrieving",
+                api_mode="V2",
+            )
+
+        assert isinstance(event, V2CoreAccountPersonUpdatedEvent)
+        assert isinstance(
+            event.data,
+            V2CoreAccountPersonUpdatedEvent.V2CoreAccountPersonUpdatedEventData,
+        )
+        assert event.reason is not None
+        assert event.reason.request is not None
+        for child in (event, event.data, event.reason.request):
+            assert child.stripe_account is None
+            assert child._requestor._options.stripe_context == "acct_event"
+
+    @pytest.mark.parametrize(
+        ("partial", "context_fields", "expected_context"),
+        [
+            (True, {}, "acct_123"),
+            (True, {"context": "acct_new"}, "acct_new"),
+            (True, {"context": None}, None),
+            (False, {}, None),
+        ],
+    )
+    def test_full_event_refresh_inherits_only_an_omitted_partial_context(
+        self, v2_payload_no_data, partial, context_fields, expected_context
+    ):
+        event = V1BillingMeterErrorReportTriggeredEvent.construct_from(
+            json.loads(v2_payload_no_data),
+            "sk_test_1234",
+            stripe_account="acct_retrieving",
+            api_mode="V2",
+        )
+        original_related_object = event.related_object
+        event.refresh_from(
+            {
+                "reason": {
+                    "type": "request",
+                    "request": {"id": "req_456", "idempotency_key": "key_456"},
+                },
+                **context_fields,
+            },
+            partial=partial,
+            stripe_account="acct_stale",
+            api_mode="V2",
+        )
+        assert event.reason is not None
+        assert event.reason.request is not None
+        expected = [event, event.reason.request]
+        if partial:
+            assert event.related_object is original_related_object
+            expected.append(event.related_object)
+        for child in expected:
+            assert child.stripe_account is None
+            assert child._requestor._options.stripe_context == expected_context
+
+    def test_full_event_partial_refresh_keeps_independently_scoped_child(
+        self, v2_payload_no_data
+    ):
+        event = V1BillingMeterErrorReportTriggeredEvent.construct_from(
+            json.loads(v2_payload_no_data), "sk_test_1234", api_mode="V2"
+        )
+        assert event.reason is not None
+        request = event.reason.request
+        assert request is not None
+        request._requestor = request._requestor.with_stripe_context(
+            "acct_independent"
+        )
+
+        event.refresh_from(
+            {"context": "acct_new"}, partial=True, api_mode="V2"
+        )
+
+        assert event.reason._requestor._options.stripe_context == "acct_new"
+        assert request._requestor._options.stripe_context == "acct_independent"
 
     @pytest.fixture(scope="function")
     def v2_payload_no_data(self):
