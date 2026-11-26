@@ -575,6 +575,104 @@ class TestStripeObject(object):
             api_key="producer-key-sentinel",
         )
 
+    def test_restored_refresh_preserves_scope_and_expand(
+        self, http_client_mock
+    ):
+        http_client_mock.stub_request(
+            "get",
+            path="/v1/customers/resource",
+            query_string="expand[0]=sources",
+            rbody='{"id": "resource", "object": "customer"}',
+        )
+        customer = stripe.Customer.retrieve(
+            "resource",
+            api_key="producer-key-sentinel",
+            stripe_account="acct_saved",
+            stripe_context=stripe.StripeContext.parse("acct_saved/acct_child"),
+            stripe_version="2017-08-15",
+            headers={"X-Custom": "one-shot-header-sentinel"},
+            expand=["sources"],
+        )
+        serialized = pickle.dumps(customer)
+        assert b"producer-key-sentinel" not in serialized
+        assert b"one-shot-header-sentinel" not in serialized
+
+        restored = pickle.loads(serialized)
+        restored.reattach_api_key("worker-key-sentinel")
+        restored.refresh()
+
+        request = http_client_mock.get_last_call()
+        request.check(
+            method="get",
+            path="/v1/customers/resource",
+            query_string="expand[0]=sources",
+            api_key="worker-key-sentinel",
+            stripe_account="acct_saved",
+            stripe_context="acct_saved/acct_child",
+            stripe_version="2017-08-15",
+        )
+        assert request.get_raw_header("X-Custom") is None
+
+    def test_restored_refresh_preserves_requestor_context(
+        self, http_client_mock
+    ):
+        http_client_mock.stub_request(
+            "get",
+            path="/v1/customers/resource",
+            rbody='{"id": "resource", "object": "customer"}',
+        )
+        client = stripe.StripeClient(
+            "producer-key-sentinel",
+            stripe_context="acct_saved",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+        customer = client.v1.customers.retrieve("resource")
+
+        restored = pickle.loads(pickle.dumps(customer))
+        restored.reattach_api_key("worker-key-sentinel")
+        restored.refresh()
+
+        http_client_mock.get_last_call().check(
+            api_key="worker-key-sentinel",
+            stripe_context="acct_saved",
+        )
+
+    def test_legacy_pickle_remains_readable(self, http_client_mock):
+        class LegacyCustomerPickle:
+            def __reduce__(self):
+                return (
+                    stripe.Customer,
+                    (
+                        "resource",
+                        API_KEY_SERIALIZATION_CONSTANT,
+                        "2017-08-15",
+                        "acct_saved",
+                    ),
+                    {"id": "resource", "object": "customer"},
+                )
+
+        restored = pickle.loads(pickle.dumps(LegacyCustomerPickle()))
+        with pytest.raises(
+            stripe.AuthenticationError, match="reattach_api_key"
+        ):
+            restored.refresh()
+        http_client_mock.assert_no_request()
+
+        restored.reattach_api_key("worker-key-sentinel")
+        http_client_mock.stub_request(
+            "get",
+            path="/v1/customers/resource",
+            rbody='{"id": "resource", "object": "customer"}',
+        )
+        restored.refresh()
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/customers/resource",
+            api_key="worker-key-sentinel",
+            stripe_account="acct_saved",
+            stripe_version="2017-08-15",
+        )
+
     def test_restored_save_uses_reattached_api_key(
         self, http_client_mock, restored_customer
     ):
