@@ -1264,6 +1264,36 @@ class TestAPIRequestor(object):
         "/v1/invoices/in_123@456",
         # A backslash does not open an authority: the "/" already closed it.
         "/v1/\\evil.example",
+        # Dots are fine anywhere other than a whole "." or ".." segment.
+        "/v1/reporting/report_types/balance.summary.1",
+        "/v1/customers/...",
+        "/v1/customers/.cus_123",
+        "/v1/customers/cus_123..",
+        "/v1/customers?email=a..b%40example.com",
+        # A double-encoded dot reaches the API as the literal "%2E".
+        "/v1/customers/%252E",
+        # An encoded slash is fine as long as no piece around it is a dot segment.
+        "/v1/coupons/summer%2F2017",
+    ]
+
+    DOT_SEGMENT_PATHS = [
+        # HTTP clients remove these segments, so each request would reach a
+        # different endpoint than the one the path was built for.
+        "/v1/checkout/sessions/.",
+        "/v1/checkout/sessions/..",
+        "/v1/customers/../payment_methods/pm_123",
+        "/v1/customers/./payment_methods/pm_123",
+        "/v1/customers/cus_123/sources/..?expand[]=customer",
+        "/v2/core/accounts/.",
+        # Some clients decode "%2E" to "." before removing dot segments.
+        "/v1/checkout/sessions/%2E",
+        "/v1/checkout/sessions/%2e%2E",
+        "/v1/checkout/sessions/.%2E",
+        # A proxy that decodes "%2F" before removing dot segments turns these
+        # into real path separators.
+        "/v1/coupons/x%2F..%2F..%2Fcustomers%2Fcus_B",
+        "/v1/customers/cus_123/sources/..%2F..%2Fcus_B",
+        "/v1/coupons/..%2fsummer",
     ]
 
     HOSTILE_PATHS = [
@@ -1297,6 +1327,99 @@ class TestAPIRequestor(object):
     ):
         with pytest.raises(ValueError):
             requestor.request("get", path, base_address="api")
+
+        http_client_mock.assert_no_request()
+
+    @pytest.mark.parametrize("path", DOT_SEGMENT_PATHS)
+    def test_rejects_dot_segment_path(self, path):
+        with pytest.raises(ValueError):
+            validate_path(path)
+
+    def test_dot_segment_error_omits_query_string(self):
+        with pytest.raises(ValueError) as exc_info:
+            validate_path(
+                "/v1/payment_intents/..?client_secret=pi_123_secret_456"
+            )
+
+        assert "/v1/payment_intents/.." in str(exc_info.value)
+        assert "pi_123_secret_456" not in str(exc_info.value)
+
+    @pytest.mark.parametrize("path", DOT_SEGMENT_PATHS)
+    def test_request_rejects_dot_segment_path_without_issuing_request(
+        self, path, requestor, http_client_mock
+    ):
+        with pytest.raises(ValueError):
+            requestor.request("get", path, base_address="api")
+
+        http_client_mock.assert_no_request()
+
+    @pytest.mark.anyio
+    @pytest.mark.parametrize("path", DOT_SEGMENT_PATHS)
+    async def test_request_async_rejects_dot_segment_path_without_issuing_request(
+        self, path, requestor, http_client_mock
+    ):
+        with pytest.raises(ValueError):
+            await requestor.request_async("get", path, base_address="api")
+
+        http_client_mock.assert_no_request()
+
+    @pytest.mark.parametrize("session_id", [".", ".."])
+    def test_service_retrieve_rejects_dot_id_without_issuing_request(
+        self, session_id, http_client_mock
+    ):
+        client = stripe.StripeClient(
+            "sk_test_123", http_client=http_client_mock.get_mock_http_client()
+        )
+
+        with pytest.raises(ValueError):
+            client.v1.checkout.sessions.retrieve(session_id)
+
+        http_client_mock.assert_no_request()
+
+    @pytest.mark.anyio
+    @pytest.mark.parametrize("session_id", [".", ".."])
+    async def test_service_retrieve_async_rejects_dot_id_without_issuing_request(
+        self, session_id, http_client_mock
+    ):
+        client = stripe.StripeClient(
+            "sk_test_123", http_client=http_client_mock.get_mock_http_client()
+        )
+
+        with pytest.raises(ValueError):
+            await client.v1.checkout.sessions.retrieve_async(session_id)
+
+        http_client_mock.assert_no_request()
+
+    def test_service_nested_rejects_dot_parent_id_without_issuing_request(
+        self, http_client_mock
+    ):
+        client = stripe.StripeClient(
+            "sk_test_123", http_client=http_client_mock.get_mock_http_client()
+        )
+
+        with pytest.raises(ValueError):
+            client.v1.customers.payment_methods.retrieve("..", "pm_123")
+
+        http_client_mock.assert_no_request()
+
+    def test_service_rejects_id_with_encoded_dot_segments_without_issuing_request(
+        self, http_client_mock
+    ):
+        client = stripe.StripeClient(
+            "sk_test_123", http_client=http_client_mock.get_mock_http_client()
+        )
+
+        with pytest.raises(ValueError):
+            client.v1.coupons.retrieve("x/../../customers/cus_B")
+
+        http_client_mock.assert_no_request()
+
+    @pytest.mark.parametrize("session_id", [".", ".."])
+    def test_legacy_retrieve_rejects_dot_id_without_issuing_request(
+        self, session_id, http_client_mock
+    ):
+        with pytest.raises(ValueError):
+            stripe.checkout.Session.retrieve(session_id)
 
         http_client_mock.assert_no_request()
 
