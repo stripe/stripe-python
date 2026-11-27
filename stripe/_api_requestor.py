@@ -173,14 +173,20 @@ class _APIRequestor(object):
                 "Call reattach_api_key(api_key) on the object before making requests."
             )
 
+        return _APIRequestor(
+            options=self._persistent_options_with_overrides(options),
+            client=self._client,
+        )
+
+    def _persistent_options_with_overrides(
+        self, options: Optional[RequestOptions]
+    ) -> RequestorOptions:
         options = options or {}
         new_options = self._options.to_dict()
         for key in PERSISTENT_OPTIONS_KEYS:
             if key in options and options[key] is not None:
                 new_options[key] = options[key]
-        return _APIRequestor(
-            options=RequestorOptions(**new_options), client=self._client
-        )
+        return RequestorOptions(**new_options)
 
     def with_stripe_context(
         self, stripe_context: "Optional[Union[str, StripeContext]]"
@@ -234,6 +240,34 @@ class _APIRequestor(object):
     ) -> "_APIRequestor":
         return _APIRequestor._global_instance()._new_requestor_with_options(
             params
+        )
+
+    def _saved_request_scope(
+        self, options: Optional[RequestOptions] = None
+    ) -> RequestOptions:
+        effective = self._persistent_options_with_overrides(options)
+        return {
+            "stripe_version": effective.stripe_version,
+            "stripe_account": effective.stripe_account,
+            "stripe_context": effective.stripe_context,
+        }
+
+    @staticmethod
+    def _global_with_saved_scope(
+        api_key: str, scope: RequestOptions
+    ) -> "_APIRequestor":
+        global_requestor = _APIRequestor._global_instance()
+        options = global_requestor._options.to_dict()
+        # A saved absence must not inherit new defaults during restoration.
+        options.update(
+            api_key=api_key,
+            stripe_version=scope.get("stripe_version"),
+            stripe_account=scope.get("stripe_account"),
+            stripe_context=scope.get("stripe_context"),
+        )
+        return _APIRequestor(
+            options=RequestorOptions(**options),
+            client=global_requestor._client,
         )
 
     @classmethod

@@ -40,6 +40,7 @@ from stripe._encode import (
 )
 from stripe._request_options import (
     PERSISTENT_OPTIONS_KEYS,
+    RequestOptions,
     extract_options_from_dict,
 )
 from stripe._api_mode import ApiMode
@@ -50,6 +51,7 @@ if TYPE_CHECKING:
 
 
 API_KEY_SERIALIZATION_CONSTANT = "API_KEY_SERIALIZATION_CONSTANT"
+_PickleState = Tuple[Dict[str, Any], Dict[str, Any], RequestOptions]
 
 
 @overload
@@ -128,6 +130,7 @@ class StripeObject:
         self._unsaved_values: Set[str] = set()
         self._transient_values: Set[str] = set()
         self._last_response = last_response
+        self._restored_scope_is_explicit = False
 
         self._retrieve_params = params
         self._previous = None
@@ -162,7 +165,7 @@ class StripeObject:
     def reattach_api_key(self, api_key: str) -> None:
         """Attach credentials to an unpickled object and its nested objects.
 
-        Each object retains its saved API version and connected account.
+        Each object retains its saved API version, account, and context.
         Objects that already have credentials cannot be reattached.
         """
         if self.api_key != API_KEY_SERIALIZATION_CONSTANT:
@@ -187,11 +190,19 @@ class StripeObject:
             seen.add(id(value))
             if isinstance(value, StripeObject):
                 if value.api_key == API_KEY_SERIALIZATION_CONSTANT:
-                    value._requestor = _APIRequestor._global_with_options(  # pyright: ignore[reportPrivateUsage]
-                        api_key=api_key,
-                        stripe_version=value.stripe_version,
-                        stripe_account=value.stripe_account,
-                    )
+                    if value._restored_scope_is_explicit:
+                        value._requestor = (
+                            _APIRequestor._global_with_saved_scope(  # pyright: ignore[reportPrivateUsage]
+                                api_key,
+                                value._requestor._saved_request_scope(),  # pyright: ignore[reportPrivateUsage]
+                            )
+                        )
+                    else:
+                        value._requestor = _APIRequestor._global_with_options(  # pyright: ignore[reportPrivateUsage]
+                            api_key=api_key,
+                            stripe_version=value.stripe_version,
+                            stripe_account=value.stripe_account,
+                        )
                 for nested in value._data.values():
                     reattach(nested)
             elif isinstance(value, dict):
@@ -333,25 +344,47 @@ class StripeObject:
     # Custom unpickling method that updates _data directly
     # without calling __setitem__, which would fail if any value is an empty
     # string
-    def __setstate__(self, state: Dict[str, Any]) -> None:
-        self._data.update(state)
-        self._unsaved_values.update(state.keys())
+    def __setstate__(self, state: Union[Dict[str, Any], _PickleState]) -> None:
+        if isinstance(state, tuple):
+            data, self._retrieve_params, scope = state
+            self._requestor = self._requestor._global_with_saved_scope(  # pyright: ignore[reportPrivateUsage]
+                API_KEY_SERIALIZATION_CONSTANT, scope
+            )
+            self._restored_scope_is_explicit = True
+        else:
+            data = state
+        self._data.update(data)
+        self._unsaved_values.update(data.keys())
 
     # Custom pickling method to ensure the instance is pickled as a custom
     # class and not as a dict, otherwise __setstate__ would not be called when
     # unpickling.
     def __reduce__(self) -> Tuple[Any, ...]:
-        reduce_value = (
-            type(self),  # callable
-            (  # args
-                getattr(self, "id", None),
-                API_KEY_SERIALIZATION_CONSTANT,
-                self.stripe_version,
-                self.stripe_account,
-            ),
-            self._data.copy(),  # state
+        cls = type(self)
+        args = (
+            getattr(self, "id", None),
+            API_KEY_SERIALIZATION_CONSTANT,
+            self.stripe_version,
+            self.stripe_account,
         )
-        return reduce_value
+        data = self._data.copy()
+        state: Union[Dict[str, Any], _PickleState] = data
+        if not isinstance(
+            self,
+            (
+                stripe.ListObject,
+                stripe.SearchResultObject,
+                stripe.v2.ListObject,
+                stripe.v2.SearchResultObject,
+            ),
+        ):
+            # Legacy retrieve kwargs mix query params with request options.
+            # Save only the query and the options needed to preserve scope.
+            options, params = extract_options_from_dict(self._retrieve_params)
+            scope = self._requestor._saved_request_scope(options)  # pyright: ignore[reportPrivateUsage]
+            state = (data, params, scope)
+
+        return cls, args, state
 
     @classmethod
     def construct_from(
