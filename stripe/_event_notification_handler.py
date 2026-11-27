@@ -66,6 +66,15 @@ if TYPE_CHECKING:
     from stripe.events._v1_application_fee_refund_updated_event import (
         V1ApplicationFeeRefundUpdatedEventNotification,
     )
+    from stripe.events._v1_apps_install_created_event import (
+        V1AppsInstallCreatedEventNotification,
+    )
+    from stripe.events._v1_apps_install_deleted_event import (
+        V1AppsInstallDeletedEventNotification,
+    )
+    from stripe.events._v1_apps_install_updated_event import (
+        V1AppsInstallUpdatedEventNotification,
+    )
     from stripe.events._v1_balance_available_event import (
         V1BalanceAvailableEventNotification,
     )
@@ -495,9 +504,6 @@ if TYPE_CHECKING:
     from stripe.events._v1_issuing_authorization_created_event import (
         V1IssuingAuthorizationCreatedEventNotification,
     )
-    from stripe.events._v1_issuing_authorization_request_event import (
-        V1IssuingAuthorizationRequestEventNotification,
-    )
     from stripe.events._v1_issuing_authorization_updated_event import (
         V1IssuingAuthorizationUpdatedEventNotification,
     )
@@ -861,8 +867,14 @@ if TYPE_CHECKING:
     from stripe.events._v2_core_account_closed_event import (
         V2CoreAccountClosedEventNotification,
     )
+    from stripe.events._v2_core_account_connected_event import (
+        V2CoreAccountConnectedEventNotification,
+    )
     from stripe.events._v2_core_account_created_event import (
         V2CoreAccountCreatedEventNotification,
+    )
+    from stripe.events._v2_core_account_disconnected_event import (
+        V2CoreAccountDisconnectedEventNotification,
     )
     from stripe.events._v2_core_account_including_configuration_customer_capability_status_updated_event import (
         V2CoreAccountIncludingConfigurationCustomerCapabilityStatusUpdatedEventNotification,
@@ -1185,6 +1197,30 @@ if TYPE_CHECKING:
     from stripe.events._v2_orchestrated_commerce_agreement_terminated_event import (
         V2OrchestratedCommerceAgreementTerminatedEventNotification,
     )
+    from stripe.events._v2_payments_off_session_payment_attempt_failed_event import (
+        V2PaymentsOffSessionPaymentAttemptFailedEventNotification,
+    )
+    from stripe.events._v2_payments_off_session_payment_attempt_started_event import (
+        V2PaymentsOffSessionPaymentAttemptStartedEventNotification,
+    )
+    from stripe.events._v2_payments_off_session_payment_canceled_event import (
+        V2PaymentsOffSessionPaymentCanceledEventNotification,
+    )
+    from stripe.events._v2_payments_off_session_payment_created_event import (
+        V2PaymentsOffSessionPaymentCreatedEventNotification,
+    )
+    from stripe.events._v2_payments_off_session_payment_failed_event import (
+        V2PaymentsOffSessionPaymentFailedEventNotification,
+    )
+    from stripe.events._v2_payments_off_session_payment_paused_event import (
+        V2PaymentsOffSessionPaymentPausedEventNotification,
+    )
+    from stripe.events._v2_payments_off_session_payment_resumed_event import (
+        V2PaymentsOffSessionPaymentResumedEventNotification,
+    )
+    from stripe.events._v2_payments_off_session_payment_succeeded_event import (
+        V2PaymentsOffSessionPaymentSucceededEventNotification,
+    )
     from stripe.events._v2_signals_account_evaluation_complete_event import (
         V2SignalsAccountEvaluationCompleteEventNotification,
     )
@@ -1443,6 +1479,45 @@ class _BaseEventNotificationHandler(Generic[CallbackReturn, PreHandleReturn]):
         """
         self._register(
             "v1.application_fee.refund.updated",
+            func,
+        )
+        return func
+
+    def on_v1_apps_install_created(
+        self,
+        func: "Callable[[V1AppsInstallCreatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1AppsInstallCreatedEvent` (`v1.apps.install.created`) event notification.
+        """
+        self._register(
+            "v1.apps.install.created",
+            func,
+        )
+        return func
+
+    def on_v1_apps_install_deleted(
+        self,
+        func: "Callable[[V1AppsInstallDeletedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1AppsInstallDeletedEvent` (`v1.apps.install.deleted`) event notification.
+        """
+        self._register(
+            "v1.apps.install.deleted",
+            func,
+        )
+        return func
+
+    def on_v1_apps_install_updated(
+        self,
+        func: "Callable[[V1AppsInstallUpdatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V1AppsInstallUpdatedEvent` (`v1.apps.install.updated`) event notification.
+        """
+        self._register(
+            "v1.apps.install.updated",
             func,
         )
         return func
@@ -3306,19 +3381,6 @@ class _BaseEventNotificationHandler(Generic[CallbackReturn, PreHandleReturn]):
         )
         return func
 
-    def on_v1_issuing_authorization_request(
-        self,
-        func: "Callable[[V1IssuingAuthorizationRequestEventNotification, StripeClient], CallbackReturn]",
-    ):
-        """
-        Registers a callback for the `V1IssuingAuthorizationRequestEvent` (`v1.issuing_authorization.request`) event notification.
-        """
-        self._register(
-            "v1.issuing_authorization.request",
-            func,
-        )
-        return func
-
     def on_v1_issuing_authorization_updated(
         self,
         func: "Callable[[V1IssuingAuthorizationUpdatedEventNotification, StripeClient], CallbackReturn]",
@@ -4892,6 +4954,19 @@ class _BaseEventNotificationHandler(Generic[CallbackReturn, PreHandleReturn]):
         )
         return func
 
+    def on_v2_core_account_connected(
+        self,
+        func: "Callable[[V2CoreAccountConnectedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V2CoreAccountConnectedEvent` (`v2.core.account.connected`) event notification.
+        """
+        self._register(
+            "v2.core.account.connected",
+            func,
+        )
+        return func
+
     def on_v2_core_account_created(
         self,
         func: "Callable[[V2CoreAccountCreatedEventNotification, StripeClient], CallbackReturn]",
@@ -4901,6 +4976,19 @@ class _BaseEventNotificationHandler(Generic[CallbackReturn, PreHandleReturn]):
         """
         self._register(
             "v2.core.account.created",
+            func,
+        )
+        return func
+
+    def on_v2_core_account_disconnected(
+        self,
+        func: "Callable[[V2CoreAccountDisconnectedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V2CoreAccountDisconnectedEvent` (`v2.core.account.disconnected`) event notification.
+        """
+        self._register(
+            "v2.core.account.disconnected",
             func,
         )
         return func
@@ -6292,6 +6380,110 @@ class _BaseEventNotificationHandler(Generic[CallbackReturn, PreHandleReturn]):
         """
         self._register(
             "v2.orchestrated_commerce.agreement.terminated",
+            func,
+        )
+        return func
+
+    def on_v2_payments_off_session_payment_attempt_failed(
+        self,
+        func: "Callable[[V2PaymentsOffSessionPaymentAttemptFailedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V2PaymentsOffSessionPaymentAttemptFailedEvent` (`v2.payments.off_session_payment.attempt_failed`) event notification.
+        """
+        self._register(
+            "v2.payments.off_session_payment.attempt_failed",
+            func,
+        )
+        return func
+
+    def on_v2_payments_off_session_payment_attempt_started(
+        self,
+        func: "Callable[[V2PaymentsOffSessionPaymentAttemptStartedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V2PaymentsOffSessionPaymentAttemptStartedEvent` (`v2.payments.off_session_payment.attempt_started`) event notification.
+        """
+        self._register(
+            "v2.payments.off_session_payment.attempt_started",
+            func,
+        )
+        return func
+
+    def on_v2_payments_off_session_payment_canceled(
+        self,
+        func: "Callable[[V2PaymentsOffSessionPaymentCanceledEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V2PaymentsOffSessionPaymentCanceledEvent` (`v2.payments.off_session_payment.canceled`) event notification.
+        """
+        self._register(
+            "v2.payments.off_session_payment.canceled",
+            func,
+        )
+        return func
+
+    def on_v2_payments_off_session_payment_created(
+        self,
+        func: "Callable[[V2PaymentsOffSessionPaymentCreatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V2PaymentsOffSessionPaymentCreatedEvent` (`v2.payments.off_session_payment.created`) event notification.
+        """
+        self._register(
+            "v2.payments.off_session_payment.created",
+            func,
+        )
+        return func
+
+    def on_v2_payments_off_session_payment_failed(
+        self,
+        func: "Callable[[V2PaymentsOffSessionPaymentFailedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V2PaymentsOffSessionPaymentFailedEvent` (`v2.payments.off_session_payment.failed`) event notification.
+        """
+        self._register(
+            "v2.payments.off_session_payment.failed",
+            func,
+        )
+        return func
+
+    def on_v2_payments_off_session_payment_paused(
+        self,
+        func: "Callable[[V2PaymentsOffSessionPaymentPausedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V2PaymentsOffSessionPaymentPausedEvent` (`v2.payments.off_session_payment.paused`) event notification.
+        """
+        self._register(
+            "v2.payments.off_session_payment.paused",
+            func,
+        )
+        return func
+
+    def on_v2_payments_off_session_payment_resumed(
+        self,
+        func: "Callable[[V2PaymentsOffSessionPaymentResumedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V2PaymentsOffSessionPaymentResumedEvent` (`v2.payments.off_session_payment.resumed`) event notification.
+        """
+        self._register(
+            "v2.payments.off_session_payment.resumed",
+            func,
+        )
+        return func
+
+    def on_v2_payments_off_session_payment_succeeded(
+        self,
+        func: "Callable[[V2PaymentsOffSessionPaymentSucceededEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V2PaymentsOffSessionPaymentSucceededEvent` (`v2.payments.off_session_payment.succeeded`) event notification.
+        """
+        self._register(
+            "v2.payments.off_session_payment.succeeded",
             func,
         )
         return func

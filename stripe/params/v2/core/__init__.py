@@ -32,6 +32,7 @@ if TYPE_CHECKING:
         AccountCreateParamsConfigurationMerchantCapabilitiesAlmaPayments as AccountCreateParamsConfigurationMerchantCapabilitiesAlmaPayments,
         AccountCreateParamsConfigurationMerchantCapabilitiesAmazonPayPayments as AccountCreateParamsConfigurationMerchantCapabilitiesAmazonPayPayments,
         AccountCreateParamsConfigurationMerchantCapabilitiesAuBecsDebitPayments as AccountCreateParamsConfigurationMerchantCapabilitiesAuBecsDebitPayments,
+        AccountCreateParamsConfigurationMerchantCapabilitiesAutomaticIndirectTax as AccountCreateParamsConfigurationMerchantCapabilitiesAutomaticIndirectTax,
         AccountCreateParamsConfigurationMerchantCapabilitiesBacsDebitPayments as AccountCreateParamsConfigurationMerchantCapabilitiesBacsDebitPayments,
         AccountCreateParamsConfigurationMerchantCapabilitiesBancontactPayments as AccountCreateParamsConfigurationMerchantCapabilitiesBancontactPayments,
         AccountCreateParamsConfigurationMerchantCapabilitiesBilliePayments as AccountCreateParamsConfigurationMerchantCapabilitiesBilliePayments,
@@ -103,12 +104,14 @@ if TYPE_CHECKING:
         AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInbound as AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInbound,
         AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundAud as AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundAud,
         AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundCad as AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundCad,
+        AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundDkk as AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundDkk,
         AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundEur as AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundEur,
         AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundGbp as AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundGbp,
         AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundUsd as AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundUsd,
         AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutbound as AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutbound,
         AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundAud as AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundAud,
         AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundCad as AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundCad,
+        AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundDkk as AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundDkk,
         AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundEur as AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundEur,
         AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundGbp as AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundGbp,
         AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundUsd as AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundUsd,
@@ -213,6 +216,9 @@ if TYPE_CHECKING:
     from stripe.params.v2.core._account_list_params import (
         AccountListParams as AccountListParams,
     )
+    from stripe.params.v2.core._account_reject_params import (
+        AccountRejectParams as AccountRejectParams,
+    )
     from stripe.params.v2.core._account_retrieve_params import (
         AccountRetrieveParams as AccountRetrieveParams,
     )
@@ -280,6 +286,9 @@ if TYPE_CHECKING:
     from stripe.params.v2.core._account_token_retrieve_params import (
         AccountTokenRetrieveParams as AccountTokenRetrieveParams,
     )
+    from stripe.params.v2.core._account_unreject_params import (
+        AccountUnrejectParams as AccountUnrejectParams,
+    )
     from stripe.params.v2.core._account_update_params import (
         AccountUpdateParams as AccountUpdateParams,
         AccountUpdateParamsConfiguration as AccountUpdateParamsConfiguration,
@@ -304,6 +313,7 @@ if TYPE_CHECKING:
         AccountUpdateParamsConfigurationMerchantCapabilitiesAlmaPayments as AccountUpdateParamsConfigurationMerchantCapabilitiesAlmaPayments,
         AccountUpdateParamsConfigurationMerchantCapabilitiesAmazonPayPayments as AccountUpdateParamsConfigurationMerchantCapabilitiesAmazonPayPayments,
         AccountUpdateParamsConfigurationMerchantCapabilitiesAuBecsDebitPayments as AccountUpdateParamsConfigurationMerchantCapabilitiesAuBecsDebitPayments,
+        AccountUpdateParamsConfigurationMerchantCapabilitiesAutomaticIndirectTax as AccountUpdateParamsConfigurationMerchantCapabilitiesAutomaticIndirectTax,
         AccountUpdateParamsConfigurationMerchantCapabilitiesBacsDebitPayments as AccountUpdateParamsConfigurationMerchantCapabilitiesBacsDebitPayments,
         AccountUpdateParamsConfigurationMerchantCapabilitiesBancontactPayments as AccountUpdateParamsConfigurationMerchantCapabilitiesBancontactPayments,
         AccountUpdateParamsConfigurationMerchantCapabilitiesBilliePayments as AccountUpdateParamsConfigurationMerchantCapabilitiesBilliePayments,
@@ -375,12 +385,14 @@ if TYPE_CHECKING:
         AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInbound as AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInbound,
         AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundAud as AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundAud,
         AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundCad as AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundCad,
+        AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundDkk as AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundDkk,
         AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundEur as AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundEur,
         AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundGbp as AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundGbp,
         AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundUsd as AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundUsd,
         AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutbound as AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutbound,
         AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundAud as AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundAud,
         AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundCad as AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundCad,
+        AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundDkk as AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundDkk,
         AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundEur as AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundEur,
         AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundGbp as AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundGbp,
         AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundUsd as AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundUsd,
@@ -423,6 +435,7 @@ if TYPE_CHECKING:
         AccountUpdateParamsIdentityAttestationsTermsOfService as AccountUpdateParamsIdentityAttestationsTermsOfService,
         AccountUpdateParamsIdentityAttestationsTermsOfServiceAccount as AccountUpdateParamsIdentityAttestationsTermsOfServiceAccount,
         AccountUpdateParamsIdentityAttestationsTermsOfServiceCryptoMoneyManager as AccountUpdateParamsIdentityAttestationsTermsOfServiceCryptoMoneyManager,
+        AccountUpdateParamsIdentityAttestationsTermsOfServiceCryptoTransfersZerohashRecipient as AccountUpdateParamsIdentityAttestationsTermsOfServiceCryptoTransfersZerohashRecipient,
         AccountUpdateParamsIdentityAttestationsTermsOfServiceMoneyManager as AccountUpdateParamsIdentityAttestationsTermsOfServiceMoneyManager,
         AccountUpdateParamsIdentityBusinessDetails as AccountUpdateParamsIdentityBusinessDetails,
         AccountUpdateParamsIdentityBusinessDetailsAdditionalAddress as AccountUpdateParamsIdentityBusinessDetailsAdditionalAddress,
@@ -643,6 +656,10 @@ _import_map = {
         False,
     ),
     "AccountCreateParamsConfigurationMerchantCapabilitiesAuBecsDebitPayments": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationMerchantCapabilitiesAutomaticIndirectTax": (
         "stripe.params.v2.core._account_create_params",
         False,
     ),
@@ -930,6 +947,10 @@ _import_map = {
         "stripe.params.v2.core._account_create_params",
         False,
     ),
+    "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundDkk": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
     "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundEur": (
         "stripe.params.v2.core._account_create_params",
         False,
@@ -951,6 +972,10 @@ _import_map = {
         False,
     ),
     "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundCad": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundDkk": (
         "stripe.params.v2.core._account_create_params",
         False,
     ),
@@ -1347,6 +1372,10 @@ _import_map = {
         False,
     ),
     "AccountListParams": ("stripe.params.v2.core._account_list_params", False),
+    "AccountRejectParams": (
+        "stripe.params.v2.core._account_reject_params",
+        False,
+    ),
     "AccountRetrieveParams": (
         "stripe.params.v2.core._account_retrieve_params",
         False,
@@ -1591,6 +1620,10 @@ _import_map = {
         "stripe.params.v2.core._account_token_retrieve_params",
         False,
     ),
+    "AccountUnrejectParams": (
+        "stripe.params.v2.core._account_unreject_params",
+        False,
+    ),
     "AccountUpdateParams": (
         "stripe.params.v2.core._account_update_params",
         False,
@@ -1680,6 +1713,10 @@ _import_map = {
         False,
     ),
     "AccountUpdateParamsConfigurationMerchantCapabilitiesAuBecsDebitPayments": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationMerchantCapabilitiesAutomaticIndirectTax": (
         "stripe.params.v2.core._account_update_params",
         False,
     ),
@@ -1967,6 +2004,10 @@ _import_map = {
         "stripe.params.v2.core._account_update_params",
         False,
     ),
+    "AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundDkk": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
     "AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundEur": (
         "stripe.params.v2.core._account_update_params",
         False,
@@ -1988,6 +2029,10 @@ _import_map = {
         False,
     ),
     "AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundCad": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundDkk": (
         "stripe.params.v2.core._account_update_params",
         False,
     ),
@@ -2156,6 +2201,10 @@ _import_map = {
         False,
     ),
     "AccountUpdateParamsIdentityAttestationsTermsOfServiceCryptoMoneyManager": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsIdentityAttestationsTermsOfServiceCryptoTransfersZerohashRecipient": (
         "stripe.params.v2.core._account_update_params",
         False,
     ),

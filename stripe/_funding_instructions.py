@@ -561,7 +561,16 @@ class FundingInstructions(StripeObject):
         """
         A list of financial addresses that can be used to fund a particular balance
         """
-        type: Union[Literal["eu_bank_transfer", "jp_bank_transfer"], str]
+        type: Union[
+            Literal[
+                "eu_bank_transfer",
+                "gb_bank_transfer",
+                "jp_bank_transfer",
+                "mx_bank_transfer",
+                "us_bank_transfer",
+            ],
+            str,
+        ]
         """
         The bank_transfer type
         """

@@ -191,6 +191,20 @@ class ReportRun(StripeObject):
         """
         _inner_class_types = {"query_errors": QueryError}
 
+    class StatusTransitions(StripeObject):
+        canceled_at: Optional[str]
+        """
+        Time at which the run was canceled.
+        """
+        failed_at: Optional[str]
+        """
+        Time at which the run failed.
+        """
+        succeeded_at: Optional[str]
+        """
+        Time at which the run succeeded.
+        """
+
     created: str
     """
     Time at which the `ReportRun` was created.
@@ -248,8 +262,13 @@ class ReportRun(StripeObject):
     """
     Additional details about the current state of the `ReportRun`.
     """
+    status_transitions: StatusTransitions
+    """
+    Timestamps of when the `ReportRun` entered each terminal status.
+    """
     _inner_class_types = {
         "result": Result,
         "result_options": ResultOptions,
         "status_details": StatusDetails,
+        "status_transitions": StatusTransitions,
     }

@@ -1111,6 +1111,10 @@ class SetupIntentConfirmParamsPaymentMethodDataUsBankAccount(TypedDict):
     """
     Routing number of the bank account.
     """
+    token: NotRequired[str]
+    """
+    The ID of a bank account [Token](https://docs.stripe.com/api/tokens/object) to use as a payment method.
+    """
 
 
 class SetupIntentConfirmParamsPaymentMethodDataUsBankAccountExternalToken(

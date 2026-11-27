@@ -1,0 +1,24 @@
+# -*- coding: utf-8 -*-
+# File generated from our OpenAPI spec
+from typing import List
+from typing_extensions import Literal, NotRequired, TypedDict
+
+
+class AccountUnrejectParams(TypedDict):
+    include: NotRequired[
+        List[
+            Literal[
+                "configuration.customer",
+                "configuration.merchant",
+                "configuration.recipient",
+                "configuration.money_manager",
+                "defaults",
+                "future_requirements",
+                "identity",
+                "requirements",
+            ]
+        ]
+    ]
+    """
+    Additional fields to include in the response.
+    """

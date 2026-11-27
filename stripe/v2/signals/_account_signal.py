@@ -11,7 +11,7 @@ class AccountSignal(StripeObject):
     An automatically evaluated signal on an account. Each Account Signal object corresponds to
     exactly one signal type, indicated by type. Only the type-specific field is populated; other
     type-specific payload fields are null. If an account has multiple signals, Stripe creates
-    separate account signal objects.
+    separate account signal objects. Account signals are available through the API for 180 days after creation.
     """
 
     OBJECT_NAME: ClassVar[Literal["v2.signals.account_signal"]] = (
@@ -80,14 +80,21 @@ class AccountSignal(StripeObject):
         _field_encodings = {"probability": "decimal_string"}
 
     class FraudulentWebsite(StripeObject):
-        details: Optional[str]
+        class AdditionalDetails(StripeObject):
+            explanation: str
+            """
+            Human-readable explanation of the fraudulent website evaluation.
+            """
+
+        additional_details: Optional[AdditionalDetails]
         """
-        Human-readable details about the fraudulent website evaluation.
+        Additional information about the fraudulent website evaluation, when available.
         """
         risk_level: Literal["elevated", "highest", "low", "normal", "unknown"]
         """
         Categorical assessment of the fraudulent website risk.
         """
+        _inner_class_types = {"additional_details": AdditionalDetails}
 
     class UserAccountSharing(StripeObject):
         risk_level: Literal["elevated", "highest", "low", "normal", "unknown"]

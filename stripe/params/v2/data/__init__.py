@@ -10,6 +10,10 @@ if TYPE_CHECKING:
         QueryRunCreateParamsQuery as QueryRunCreateParamsQuery,
         QueryRunCreateParamsResultOptions as QueryRunCreateParamsResultOptions,
     )
+    from stripe.params.v2.data._query_run_list_params import (
+        QueryRunListParams as QueryRunListParams,
+        QueryRunListParamsCreated as QueryRunListParamsCreated,
+    )
     from stripe.params.v2.data._query_run_retrieve_params import (
         QueryRunRetrieveParams as QueryRunRetrieveParams,
     )
@@ -23,6 +27,10 @@ if TYPE_CHECKING:
         ReportRunCreateParams as ReportRunCreateParams,
         ReportRunCreateParamsReport as ReportRunCreateParamsReport,
         ReportRunCreateParamsResultOptions as ReportRunCreateParamsResultOptions,
+    )
+    from stripe.params.v2.data._report_run_list_params import (
+        ReportRunListParams as ReportRunListParams,
+        ReportRunListParamsCreated as ReportRunListParamsCreated,
     )
     from stripe.params.v2.data._report_run_retrieve_params import (
         ReportRunRetrieveParams as ReportRunRetrieveParams,
@@ -49,6 +57,14 @@ _import_map = {
         "stripe.params.v2.data._query_run_create_params",
         False,
     ),
+    "QueryRunListParams": (
+        "stripe.params.v2.data._query_run_list_params",
+        False,
+    ),
+    "QueryRunListParamsCreated": (
+        "stripe.params.v2.data._query_run_list_params",
+        False,
+    ),
     "QueryRunRetrieveParams": (
         "stripe.params.v2.data._query_run_retrieve_params",
         False,
@@ -68,6 +84,14 @@ _import_map = {
     ),
     "ReportRunCreateParamsResultOptions": (
         "stripe.params.v2.data._report_run_create_params",
+        False,
+    ),
+    "ReportRunListParams": (
+        "stripe.params.v2.data._report_run_list_params",
+        False,
+    ),
+    "ReportRunListParamsCreated": (
+        "stripe.params.v2.data._report_run_list_params",
         False,
     ),
     "ReportRunRetrieveParams": (

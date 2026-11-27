@@ -380,6 +380,20 @@ class Dispute(
                 "visa_compliance": VisaCompliance,
             }
 
+        appeal_method: Optional[
+            Union[
+                Literal[
+                    "manual",
+                    "not_applicable",
+                    "not_submitted",
+                    "smart_disputes",
+                ],
+                str,
+            ]
+        ]
+        """
+        If the dispute was eligible for appeal, whether the appeal was submitted manually, with Smart Disputes, or not submitted.
+        """
         due_by: Optional[int]
         """
         Date by which evidence must be submitted in order to successfully challenge dispute. Will be 0 if the customer's bank or credit card company doesn't allow a response for this particular dispute.
@@ -443,6 +457,10 @@ class Dispute(
             chargeback_loss_reason_code: Optional[str]
             """
             Chargeback loss reason mapped by Stripe from Klarna's chargeback loss reason
+            """
+            dispute_id: Optional[str]
+            """
+            The ID of the dispute in Klarna.
             """
             reason_code: Optional[str]
             """

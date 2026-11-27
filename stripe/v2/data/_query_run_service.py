@@ -10,13 +10,55 @@ if TYPE_CHECKING:
     from stripe.params.v2.data._query_run_create_params import (
         QueryRunCreateParams,
     )
+    from stripe.params.v2.data._query_run_list_params import QueryRunListParams
     from stripe.params.v2.data._query_run_retrieve_params import (
         QueryRunRetrieveParams,
     )
+    from stripe.v2._list_object import ListObject
     from stripe.v2.data._query_run import QueryRun
 
 
 class QueryRunService(StripeService):
+    def list(
+        self,
+        params: Optional["QueryRunListParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "ListObject[QueryRun]":
+        """
+        Returns a list of `QueryRun` objects created through the API, most recent first. Listed
+        `QueryRun` objects don't include `result`. Retrieve a `QueryRun` to access its result.
+        """
+        return cast(
+            "ListObject[QueryRun]",
+            self._request(
+                "get",
+                "/v2/data/query_runs",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def list_async(
+        self,
+        params: Optional["QueryRunListParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "ListObject[QueryRun]":
+        """
+        Returns a list of `QueryRun` objects created through the API, most recent first. Listed
+        `QueryRun` objects don't include `result`. Retrieve a `QueryRun` to access its result.
+        """
+        return cast(
+            "ListObject[QueryRun]",
+            await self._request_async(
+                "get",
+                "/v2/data/query_runs",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def create(
         self,
         params: "QueryRunCreateParams",

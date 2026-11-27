@@ -246,10 +246,6 @@ class ReceivedCredit(StripeObject):
     """
     String representing the object's type. Objects of the same type share the same value of the object field.
     """
-    receipt_url: Optional[str]
-    """
-    A hosted transaction receipt URL that is provided when money movement is considered regulated under Stripe's money transmission licenses.
-    """
     status: Union[Literal["failed", "pending", "returned", "succeeded"], str]
     """
     Open Enum. The status of the ReceivedCredit.

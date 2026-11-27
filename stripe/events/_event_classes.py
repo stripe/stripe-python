@@ -34,6 +34,15 @@ if TYPE_CHECKING:
     from stripe.events._v1_application_fee_refund_updated_event import (
         V1ApplicationFeeRefundUpdatedEventNotification,
     )
+    from stripe.events._v1_apps_install_created_event import (
+        V1AppsInstallCreatedEventNotification,
+    )
+    from stripe.events._v1_apps_install_deleted_event import (
+        V1AppsInstallDeletedEventNotification,
+    )
+    from stripe.events._v1_apps_install_updated_event import (
+        V1AppsInstallUpdatedEventNotification,
+    )
     from stripe.events._v1_balance_available_event import (
         V1BalanceAvailableEventNotification,
     )
@@ -463,9 +472,6 @@ if TYPE_CHECKING:
     from stripe.events._v1_issuing_authorization_created_event import (
         V1IssuingAuthorizationCreatedEventNotification,
     )
-    from stripe.events._v1_issuing_authorization_request_event import (
-        V1IssuingAuthorizationRequestEventNotification,
-    )
     from stripe.events._v1_issuing_authorization_updated_event import (
         V1IssuingAuthorizationUpdatedEventNotification,
     )
@@ -829,8 +835,14 @@ if TYPE_CHECKING:
     from stripe.events._v2_core_account_closed_event import (
         V2CoreAccountClosedEventNotification,
     )
+    from stripe.events._v2_core_account_connected_event import (
+        V2CoreAccountConnectedEventNotification,
+    )
     from stripe.events._v2_core_account_created_event import (
         V2CoreAccountCreatedEventNotification,
+    )
+    from stripe.events._v2_core_account_disconnected_event import (
+        V2CoreAccountDisconnectedEventNotification,
     )
     from stripe.events._v2_core_account_including_configuration_customer_capability_status_updated_event import (
         V2CoreAccountIncludingConfigurationCustomerCapabilityStatusUpdatedEventNotification,
@@ -1153,6 +1165,30 @@ if TYPE_CHECKING:
     from stripe.events._v2_orchestrated_commerce_agreement_terminated_event import (
         V2OrchestratedCommerceAgreementTerminatedEventNotification,
     )
+    from stripe.events._v2_payments_off_session_payment_attempt_failed_event import (
+        V2PaymentsOffSessionPaymentAttemptFailedEventNotification,
+    )
+    from stripe.events._v2_payments_off_session_payment_attempt_started_event import (
+        V2PaymentsOffSessionPaymentAttemptStartedEventNotification,
+    )
+    from stripe.events._v2_payments_off_session_payment_canceled_event import (
+        V2PaymentsOffSessionPaymentCanceledEventNotification,
+    )
+    from stripe.events._v2_payments_off_session_payment_created_event import (
+        V2PaymentsOffSessionPaymentCreatedEventNotification,
+    )
+    from stripe.events._v2_payments_off_session_payment_failed_event import (
+        V2PaymentsOffSessionPaymentFailedEventNotification,
+    )
+    from stripe.events._v2_payments_off_session_payment_paused_event import (
+        V2PaymentsOffSessionPaymentPausedEventNotification,
+    )
+    from stripe.events._v2_payments_off_session_payment_resumed_event import (
+        V2PaymentsOffSessionPaymentResumedEventNotification,
+    )
+    from stripe.events._v2_payments_off_session_payment_succeeded_event import (
+        V2PaymentsOffSessionPaymentSucceededEventNotification,
+    )
     from stripe.events._v2_signals_account_evaluation_complete_event import (
         V2SignalsAccountEvaluationCompleteEventNotification,
     )
@@ -1200,6 +1236,18 @@ _V2_EVENT_CLASS_LOOKUP = {
     "v1.application_fee.refund.updated": (
         "stripe.events._v1_application_fee_refund_updated_event",
         "V1ApplicationFeeRefundUpdatedEvent",
+    ),
+    "v1.apps.install.created": (
+        "stripe.events._v1_apps_install_created_event",
+        "V1AppsInstallCreatedEvent",
+    ),
+    "v1.apps.install.deleted": (
+        "stripe.events._v1_apps_install_deleted_event",
+        "V1AppsInstallDeletedEvent",
+    ),
+    "v1.apps.install.updated": (
+        "stripe.events._v1_apps_install_updated_event",
+        "V1AppsInstallUpdatedEvent",
     ),
     "v1.balance.available": (
         "stripe.events._v1_balance_available_event",
@@ -1773,10 +1821,6 @@ _V2_EVENT_CLASS_LOOKUP = {
         "stripe.events._v1_issuing_authorization_created_event",
         "V1IssuingAuthorizationCreatedEvent",
     ),
-    "v1.issuing_authorization.request": (
-        "stripe.events._v1_issuing_authorization_request_event",
-        "V1IssuingAuthorizationRequestEvent",
-    ),
     "v1.issuing_authorization.updated": (
         "stripe.events._v1_issuing_authorization_updated_event",
         "V1IssuingAuthorizationUpdatedEvent",
@@ -2261,9 +2305,17 @@ _V2_EVENT_CLASS_LOOKUP = {
         "stripe.events._v2_core_account_closed_event",
         "V2CoreAccountClosedEvent",
     ),
+    "v2.core.account.connected": (
+        "stripe.events._v2_core_account_connected_event",
+        "V2CoreAccountConnectedEvent",
+    ),
     "v2.core.account.created": (
         "stripe.events._v2_core_account_created_event",
         "V2CoreAccountCreatedEvent",
+    ),
+    "v2.core.account.disconnected": (
+        "stripe.events._v2_core_account_disconnected_event",
+        "V2CoreAccountDisconnectedEvent",
     ),
     "v2.core.account[configuration.customer].capability_status_updated": (
         "stripe.events._v2_core_account_including_configuration_customer_capability_status_updated_event",
@@ -2693,6 +2745,38 @@ _V2_EVENT_CLASS_LOOKUP = {
         "stripe.events._v2_orchestrated_commerce_agreement_terminated_event",
         "V2OrchestratedCommerceAgreementTerminatedEvent",
     ),
+    "v2.payments.off_session_payment.attempt_failed": (
+        "stripe.events._v2_payments_off_session_payment_attempt_failed_event",
+        "V2PaymentsOffSessionPaymentAttemptFailedEvent",
+    ),
+    "v2.payments.off_session_payment.attempt_started": (
+        "stripe.events._v2_payments_off_session_payment_attempt_started_event",
+        "V2PaymentsOffSessionPaymentAttemptStartedEvent",
+    ),
+    "v2.payments.off_session_payment.canceled": (
+        "stripe.events._v2_payments_off_session_payment_canceled_event",
+        "V2PaymentsOffSessionPaymentCanceledEvent",
+    ),
+    "v2.payments.off_session_payment.created": (
+        "stripe.events._v2_payments_off_session_payment_created_event",
+        "V2PaymentsOffSessionPaymentCreatedEvent",
+    ),
+    "v2.payments.off_session_payment.failed": (
+        "stripe.events._v2_payments_off_session_payment_failed_event",
+        "V2PaymentsOffSessionPaymentFailedEvent",
+    ),
+    "v2.payments.off_session_payment.paused": (
+        "stripe.events._v2_payments_off_session_payment_paused_event",
+        "V2PaymentsOffSessionPaymentPausedEvent",
+    ),
+    "v2.payments.off_session_payment.resumed": (
+        "stripe.events._v2_payments_off_session_payment_resumed_event",
+        "V2PaymentsOffSessionPaymentResumedEvent",
+    ),
+    "v2.payments.off_session_payment.succeeded": (
+        "stripe.events._v2_payments_off_session_payment_succeeded_event",
+        "V2PaymentsOffSessionPaymentSucceededEvent",
+    ),
     "v2.signals.account_evaluation.complete": (
         "stripe.events._v2_signals_account_evaluation_complete_event",
         "V2SignalsAccountEvaluationCompleteEvent",
@@ -2755,6 +2839,18 @@ _V2_EVENT_NOTIFICATION_CLASS_LOOKUP = {
     "v1.application_fee.refund.updated": (
         "stripe.events._v1_application_fee_refund_updated_event",
         "V1ApplicationFeeRefundUpdatedEventNotification",
+    ),
+    "v1.apps.install.created": (
+        "stripe.events._v1_apps_install_created_event",
+        "V1AppsInstallCreatedEventNotification",
+    ),
+    "v1.apps.install.deleted": (
+        "stripe.events._v1_apps_install_deleted_event",
+        "V1AppsInstallDeletedEventNotification",
+    ),
+    "v1.apps.install.updated": (
+        "stripe.events._v1_apps_install_updated_event",
+        "V1AppsInstallUpdatedEventNotification",
     ),
     "v1.balance.available": (
         "stripe.events._v1_balance_available_event",
@@ -3328,10 +3424,6 @@ _V2_EVENT_NOTIFICATION_CLASS_LOOKUP = {
         "stripe.events._v1_issuing_authorization_created_event",
         "V1IssuingAuthorizationCreatedEventNotification",
     ),
-    "v1.issuing_authorization.request": (
-        "stripe.events._v1_issuing_authorization_request_event",
-        "V1IssuingAuthorizationRequestEventNotification",
-    ),
     "v1.issuing_authorization.updated": (
         "stripe.events._v1_issuing_authorization_updated_event",
         "V1IssuingAuthorizationUpdatedEventNotification",
@@ -3816,9 +3908,17 @@ _V2_EVENT_NOTIFICATION_CLASS_LOOKUP = {
         "stripe.events._v2_core_account_closed_event",
         "V2CoreAccountClosedEventNotification",
     ),
+    "v2.core.account.connected": (
+        "stripe.events._v2_core_account_connected_event",
+        "V2CoreAccountConnectedEventNotification",
+    ),
     "v2.core.account.created": (
         "stripe.events._v2_core_account_created_event",
         "V2CoreAccountCreatedEventNotification",
+    ),
+    "v2.core.account.disconnected": (
+        "stripe.events._v2_core_account_disconnected_event",
+        "V2CoreAccountDisconnectedEventNotification",
     ),
     "v2.core.account[configuration.customer].capability_status_updated": (
         "stripe.events._v2_core_account_including_configuration_customer_capability_status_updated_event",
@@ -4248,6 +4348,38 @@ _V2_EVENT_NOTIFICATION_CLASS_LOOKUP = {
         "stripe.events._v2_orchestrated_commerce_agreement_terminated_event",
         "V2OrchestratedCommerceAgreementTerminatedEventNotification",
     ),
+    "v2.payments.off_session_payment.attempt_failed": (
+        "stripe.events._v2_payments_off_session_payment_attempt_failed_event",
+        "V2PaymentsOffSessionPaymentAttemptFailedEventNotification",
+    ),
+    "v2.payments.off_session_payment.attempt_started": (
+        "stripe.events._v2_payments_off_session_payment_attempt_started_event",
+        "V2PaymentsOffSessionPaymentAttemptStartedEventNotification",
+    ),
+    "v2.payments.off_session_payment.canceled": (
+        "stripe.events._v2_payments_off_session_payment_canceled_event",
+        "V2PaymentsOffSessionPaymentCanceledEventNotification",
+    ),
+    "v2.payments.off_session_payment.created": (
+        "stripe.events._v2_payments_off_session_payment_created_event",
+        "V2PaymentsOffSessionPaymentCreatedEventNotification",
+    ),
+    "v2.payments.off_session_payment.failed": (
+        "stripe.events._v2_payments_off_session_payment_failed_event",
+        "V2PaymentsOffSessionPaymentFailedEventNotification",
+    ),
+    "v2.payments.off_session_payment.paused": (
+        "stripe.events._v2_payments_off_session_payment_paused_event",
+        "V2PaymentsOffSessionPaymentPausedEventNotification",
+    ),
+    "v2.payments.off_session_payment.resumed": (
+        "stripe.events._v2_payments_off_session_payment_resumed_event",
+        "V2PaymentsOffSessionPaymentResumedEventNotification",
+    ),
+    "v2.payments.off_session_payment.succeeded": (
+        "stripe.events._v2_payments_off_session_payment_succeeded_event",
+        "V2PaymentsOffSessionPaymentSucceededEventNotification",
+    ),
     "v2.signals.account_evaluation.complete": (
         "stripe.events._v2_signals_account_evaluation_complete_event",
         "V2SignalsAccountEvaluationCompleteEventNotification",
@@ -4284,6 +4416,9 @@ ALL_EVENT_NOTIFICATIONS = Union[
     "V1ApplicationFeeCreatedEventNotification",
     "V1ApplicationFeeRefundedEventNotification",
     "V1ApplicationFeeRefundUpdatedEventNotification",
+    "V1AppsInstallCreatedEventNotification",
+    "V1AppsInstallDeletedEventNotification",
+    "V1AppsInstallUpdatedEventNotification",
     "V1BalanceAvailableEventNotification",
     "V1BalanceSettingsUpdatedEventNotification",
     "V1BillingAlertTriggeredEventNotification",
@@ -4427,7 +4562,6 @@ ALL_EVENT_NOTIFICATIONS = Union[
     "V1InvoiceVoidedEventNotification",
     "V1InvoiceWillBeDueEventNotification",
     "V1IssuingAuthorizationCreatedEventNotification",
-    "V1IssuingAuthorizationRequestEventNotification",
     "V1IssuingAuthorizationUpdatedEventNotification",
     "V1IssuingCardCreatedEventNotification",
     "V1IssuingCardholderCreatedEventNotification",
@@ -4549,7 +4683,9 @@ ALL_EVENT_NOTIFICATIONS = Union[
     "V2CommerceProductCatalogImportsSucceededEventNotification",
     "V2CommerceProductCatalogImportsSucceededWithErrorsEventNotification",
     "V2CoreAccountClosedEventNotification",
+    "V2CoreAccountConnectedEventNotification",
     "V2CoreAccountCreatedEventNotification",
+    "V2CoreAccountDisconnectedEventNotification",
     "V2CoreAccountIncludingConfigurationCustomerCapabilityStatusUpdatedEventNotification",
     "V2CoreAccountIncludingConfigurationCustomerUpdatedEventNotification",
     "V2CoreAccountIncludingConfigurationMerchantCapabilityStatusUpdatedEventNotification",
@@ -4657,6 +4793,14 @@ ALL_EVENT_NOTIFICATIONS = Union[
     "V2OrchestratedCommerceAgreementCreatedEventNotification",
     "V2OrchestratedCommerceAgreementPartiallyConfirmedEventNotification",
     "V2OrchestratedCommerceAgreementTerminatedEventNotification",
+    "V2PaymentsOffSessionPaymentAttemptFailedEventNotification",
+    "V2PaymentsOffSessionPaymentAttemptStartedEventNotification",
+    "V2PaymentsOffSessionPaymentCanceledEventNotification",
+    "V2PaymentsOffSessionPaymentCreatedEventNotification",
+    "V2PaymentsOffSessionPaymentFailedEventNotification",
+    "V2PaymentsOffSessionPaymentPausedEventNotification",
+    "V2PaymentsOffSessionPaymentResumedEventNotification",
+    "V2PaymentsOffSessionPaymentSucceededEventNotification",
     "V2SignalsAccountEvaluationCompleteEventNotification",
     "V2SignalsAccountSignalFraudulentMerchantReadyEventNotification",
     "V2SignalsAccountSignalFraudulentWebsiteReadyEventNotification",

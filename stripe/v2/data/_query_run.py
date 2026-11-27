@@ -197,6 +197,20 @@ class QueryRun(StripeObject):
         """
         _inner_class_types = {"query_errors": QueryError}
 
+    class StatusTransitions(StripeObject):
+        canceled_at: Optional[str]
+        """
+        Time at which the run was canceled.
+        """
+        failed_at: Optional[str]
+        """
+        Time at which the run failed.
+        """
+        succeeded_at: Optional[str]
+        """
+        Time at which the run succeeded.
+        """
+
     created: str
     """
     Time at which the `QueryRun` was created.
@@ -245,9 +259,14 @@ class QueryRun(StripeObject):
     """
     Additional details about the current state of the `QueryRun`.
     """
+    status_transitions: StatusTransitions
+    """
+    Timestamps of when the `QueryRun` entered each terminal status.
+    """
     _inner_class_types = {
         "query": Query,
         "result": Result,
         "result_options": ResultOptions,
         "status_details": StatusDetails,
+        "status_transitions": StatusTransitions,
     }

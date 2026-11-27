@@ -24,7 +24,9 @@ class AccountSignalService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[AccountSignal]":
         """
-        Lists AccountSignals whose created timestamps are no more than 90 days old for a given account or customer. Returns only the latest AccountSignal for each requested signal type.
+        Lists AccountSignals for a given account or customer, newest first. Signals more than 180 days old are omitted.
+        By default, returns only the latest matching AccountSignal for each requested signal type.
+        Set latest_per_type to false to include matching historical signals. Filtering and latest-per-type selection occur before pagination.
         """
         return cast(
             "ListObject[AccountSignal]",
@@ -43,7 +45,9 @@ class AccountSignalService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[AccountSignal]":
         """
-        Lists AccountSignals whose created timestamps are no more than 90 days old for a given account or customer. Returns only the latest AccountSignal for each requested signal type.
+        Lists AccountSignals for a given account or customer, newest first. Signals more than 180 days old are omitted.
+        By default, returns only the latest matching AccountSignal for each requested signal type.
+        Set latest_per_type to false to include matching historical signals. Filtering and latest-per-type selection occur before pagination.
         """
         return cast(
             "ListObject[AccountSignal]",
@@ -64,7 +68,7 @@ class AccountSignalService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "AccountSignal":
         """
-        Retrieves an AccountSignal by its ID when its created timestamp is no more than 90 days old.
+        Retrieves an AccountSignal by its ID for up to 180 days after creation. Signals more than 180 days old are inaccessible.
         """
         return cast(
             "AccountSignal",
@@ -85,7 +89,7 @@ class AccountSignalService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "AccountSignal":
         """
-        Retrieves an AccountSignal by its ID when its created timestamp is no more than 90 days old.
+        Retrieves an AccountSignal by its ID for up to 180 days after creation. Signals more than 180 days old are inaccessible.
         """
         return cast(
             "AccountSignal",

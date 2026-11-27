@@ -193,7 +193,7 @@ class SessionService(StripeService):
         """
         Updates a Checkout Session object.
 
-        Related guide: [Dynamically update a Checkout Session](https://docs.stripe.com/payments/advanced/dynamic-updates)
+        Related guide: [Dynamically update a Checkout Session](https://docs.stripe.com/payments/checkout/dynamic-updates)
         """
         return cast(
             "Session",
@@ -218,7 +218,7 @@ class SessionService(StripeService):
         """
         Updates a Checkout Session object.
 
-        Related guide: [Dynamically update a Checkout Session](https://docs.stripe.com/payments/advanced/dynamic-updates)
+        Related guide: [Dynamically update a Checkout Session](https://docs.stripe.com/payments/checkout/dynamic-updates)
         """
         return cast(
             "Session",

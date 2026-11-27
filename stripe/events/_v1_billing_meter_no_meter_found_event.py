@@ -63,6 +63,7 @@ class V1BillingMeterNoMeterFoundEvent(Event):
                         "meter_event_no_customer_defined",
                         "meter_event_value_too_many_digits",
                         "missing_dimension_payload_keys",
+                        "missing_tenant_payload_keys",
                         "no_meter",
                         "timestamp_in_future",
                         "timestamp_too_far_in_past",

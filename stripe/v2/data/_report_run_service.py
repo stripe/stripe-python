@@ -10,13 +10,57 @@ if TYPE_CHECKING:
     from stripe.params.v2.data._report_run_create_params import (
         ReportRunCreateParams,
     )
+    from stripe.params.v2.data._report_run_list_params import (
+        ReportRunListParams,
+    )
     from stripe.params.v2.data._report_run_retrieve_params import (
         ReportRunRetrieveParams,
     )
+    from stripe.v2._list_object import ListObject
     from stripe.v2.data._report_run import ReportRun
 
 
 class ReportRunService(StripeService):
+    def list(
+        self,
+        params: Optional["ReportRunListParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "ListObject[ReportRun]":
+        """
+        Returns a list of `ReportRun` objects created through the API, most recent first. Listed
+        `ReportRun` objects don't include `result` or `sql`. Retrieve a `ReportRun` to access them.
+        """
+        return cast(
+            "ListObject[ReportRun]",
+            self._request(
+                "get",
+                "/v2/data/report_runs",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def list_async(
+        self,
+        params: Optional["ReportRunListParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "ListObject[ReportRun]":
+        """
+        Returns a list of `ReportRun` objects created through the API, most recent first. Listed
+        `ReportRun` objects don't include `result` or `sql`. Retrieve a `ReportRun` to access them.
+        """
+        return cast(
+            "ListObject[ReportRun]",
+            await self._request_async(
+                "get",
+                "/v2/data/report_runs",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def create(
         self,
         params: "ReportRunCreateParams",

@@ -19,7 +19,7 @@ class ConfirmationTokenService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "ConfirmationToken":
         """
-        Creates a test mode Confirmation Token server side for your integration tests.
+        Creates a test Confirmation Token server side for your integration tests.
         """
         return cast(
             "ConfirmationToken",
@@ -38,7 +38,7 @@ class ConfirmationTokenService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "ConfirmationToken":
         """
-        Creates a test mode Confirmation Token server side for your integration tests.
+        Creates a test Confirmation Token server side for your integration tests.
         """
         return cast(
             "ConfirmationToken",

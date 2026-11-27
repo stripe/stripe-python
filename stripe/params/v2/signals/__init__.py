@@ -50,6 +50,7 @@ if TYPE_CHECKING:
     from stripe.params.v2.signals._account_signal_list_params import (
         AccountSignalListParams as AccountSignalListParams,
         AccountSignalListParamsAccountDetails as AccountSignalListParamsAccountDetails,
+        AccountSignalListParamsCreated as AccountSignalListParamsCreated,
     )
     from stripe.params.v2.signals._account_signal_retrieve_params import (
         AccountSignalRetrieveParams as AccountSignalRetrieveParams,
@@ -194,6 +195,10 @@ _import_map = {
         False,
     ),
     "AccountSignalListParamsAccountDetails": (
+        "stripe.params.v2.signals._account_signal_list_params",
+        False,
+    ),
+    "AccountSignalListParamsCreated": (
         "stripe.params.v2.signals._account_signal_list_params",
         False,
     ),

@@ -159,10 +159,6 @@ class ReceivedDebit(StripeObject):
     """
     String representing the object's type. Objects of the same type share the same value of the object field.
     """
-    receipt_url: Optional[str]
-    """
-    A link to the Stripe-hosted receipt for this ReceivedDebit.
-    """
     status: Union[
         Literal["canceled", "failed", "pending", "returned", "succeeded"], str
     ]
