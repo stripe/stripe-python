@@ -41,15 +41,25 @@ def build_v1_event(values: Dict[str, Any], requestor: _APIRequestor) -> Event:
     )
 
 
+def _decode_payload(payload: WebhookPayload) -> str:
+    """
+    Internal helper that returns the payload as an immutable `str`. Callers that verify and then parse should decode once and use the result for both, so the two steps can't see different contents of a mutable buffer.
+    """
+    if isinstance(payload, (bytes, bytearray)):
+        return payload.decode("utf-8")
+    # type checkers treat a `bytes`/`bytearray` annotation as also accepting a
+    # `memoryview`, which has no `.decode()`
+    if isinstance(payload, memoryview):
+        return payload.tobytes().decode("utf-8")
+    return payload
+
+
 def maybe_extract_from_cloud_provider_envelope(payload: WebhookPayload):
     """
     Internal helper to extract the inner type from a cloud provider envelope (regardless of what's in there).
     If the payload is already a raw Stripe event (object is 'event' or 'v2.core.event'), returns the parsed dict as-is.
     """
-    if isinstance(payload, (bytes, bytearray)):
-        payload = payload.decode("utf-8")
-
-    data = json.loads(payload, object_pairs_hook=OrderedDict)
+    data = json.loads(_decode_payload(payload), object_pairs_hook=OrderedDict)
 
     # could add as many checks as we want here, but we'll start simple
     if detail := data.get("detail"):
@@ -84,10 +94,13 @@ class Webhook(object):
         """Constructs a [snapshot event](https://docs.stripe.com/event-destinations#snapshot-payload) from an incoming webhook after verifying its authenticity. To work with a webhook that has already been verified (i.e. one from a cloud provider, an asynchronous queue, or during testing), see `construct_event_without_verification`.
 
         `sig_header` is only marked as `Optional` so it plays nicely with the types commonly returned from web frameworks. This raises a `SignatureVerificationError` if a signature is not provided."""
-        WebhookSignature.verify_header(payload, sig_header, secret, tolerance)
+        decoded_payload = _decode_payload(payload)
+        WebhookSignature.verify_header(
+            decoded_payload, sig_header, secret, tolerance
+        )
 
         return build_v1_event(
-            json.loads(payload, object_pairs_hook=OrderedDict),
+            json.loads(decoded_payload, object_pairs_hook=OrderedDict),
             api_requestor
             or _APIRequestor._global_with_options(
                 api_key=api_key or stripe.api_key
@@ -150,8 +163,7 @@ class WebhookSignature(object):
         `sig_header` and `secret` are only marked as `Optional` so they play nicely with the types commonly returned from web frameworks. This raises a `SignatureVerificationError` if either is missing."""
         # the signature is computed over the string form of the body, so binary
         # input has to be decoded before it's interpolated below
-        if isinstance(payload, (bytes, bytearray)):
-            payload = payload.decode("utf-8")
+        payload = _decode_payload(payload)
 
         if not header:
             raise SignatureVerificationError(

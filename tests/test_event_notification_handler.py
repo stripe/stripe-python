@@ -21,7 +21,11 @@ from stripe.events._v2_core_account_created_event import (
 )
 from stripe.v2.core._event import EventNotification, UnknownEventNotification
 from tests.http_client_mock import HTTPClientMock
-from tests.test_webhook import DUMMY_WEBHOOK_SECRET, generate_header
+from tests.test_webhook import (
+    DUMMY_WEBHOOK_SECRET,
+    generate_header,
+    overwrite_payload_during_verification,
+)
 
 
 class TestEventNotificationHandler:
@@ -550,6 +554,53 @@ class TestEventNotificationHandler:
         event_handler.handle(encode(v1_billing_meter_payload), sig_header)
 
         callback.assert_called_once()
+
+    def test_handle_ignores_payload_mutated_during_verification(
+        self,
+        event_handler: StripeEventNotificationHandler,
+        v1_billing_meter_payload: str,
+        monkeypatch: pytest.MonkeyPatch,
+    ) -> None:
+        """The callback gets the notification that was signed, even if the caller's buffer changes mid-verification"""
+        received: Optional[EventNotification] = None
+
+        def callback(
+            notif: V1BillingMeterErrorReportTriggeredEventNotification,
+            client: StripeClient,
+        ) -> None:
+            nonlocal received
+            received = notif
+
+        event_handler.on_v1_billing_meter_error_report_triggered(callback)
+
+        sig_header = generate_header(payload=v1_billing_meter_payload)
+        body = bytearray(v1_billing_meter_payload, "utf-8")
+        overwrite_payload_during_verification(
+            monkeypatch,
+            body,
+            v1_billing_meter_payload.replace("evt_123", "evt_456"),
+        )
+        event_handler.handle(body, sig_header)
+
+        assert received is not None
+        assert received.id == "evt_123"
+
+    def test_handle_rejects_payload_that_was_never_signed(
+        self,
+        event_handler: StripeEventNotificationHandler,
+        v1_billing_meter_payload: str,
+    ) -> None:
+        callback = Mock()
+        event_handler.on_v1_billing_meter_error_report_triggered(callback)
+
+        sig_header = generate_header(payload=v1_billing_meter_payload)
+        body = bytearray(
+            v1_billing_meter_payload.replace("evt_123", "evt_456"), "utf-8"
+        )
+        with pytest.raises(SignatureVerificationError):
+            event_handler.handle(body, sig_header)
+
+        callback.assert_not_called()
 
     @pytest.mark.parametrize("sig_header", [None, ""])
     def test_rejects_missing_sig_header(
@@ -1171,6 +1222,54 @@ class TestAsyncEventNotificationHandler:
         )
         assert received.id == "evt_123"
         fallback_callback.assert_not_called()
+
+    @pytest.mark.anyio
+    async def test_handle_async_ignores_payload_mutated_during_verification(
+        self,
+        event_handler: AsyncStripeEventNotificationHandler,
+        v1_billing_meter_payload: str,
+        monkeypatch: pytest.MonkeyPatch,
+    ) -> None:
+        received: Optional[EventNotification] = None
+
+        async def callback(
+            notif: V1BillingMeterErrorReportTriggeredEventNotification,
+            client: StripeClient,
+        ) -> None:
+            nonlocal received
+            received = notif
+
+        event_handler.on_v1_billing_meter_error_report_triggered(callback)
+
+        sig_header = generate_header(payload=v1_billing_meter_payload)
+        body = bytearray(v1_billing_meter_payload, "utf-8")
+        overwrite_payload_during_verification(
+            monkeypatch,
+            body,
+            v1_billing_meter_payload.replace("evt_123", "evt_456"),
+        )
+        await event_handler.handle_async(body, sig_header)
+
+        assert received is not None
+        assert received.id == "evt_123"
+
+    @pytest.mark.anyio
+    async def test_handle_async_rejects_payload_that_was_never_signed(
+        self,
+        event_handler: AsyncStripeEventNotificationHandler,
+        v1_billing_meter_payload: str,
+    ) -> None:
+        callback = AsyncMock()
+        event_handler.on_v1_billing_meter_error_report_triggered(callback)
+
+        sig_header = generate_header(payload=v1_billing_meter_payload)
+        body = bytearray(
+            v1_billing_meter_payload.replace("evt_123", "evt_456"), "utf-8"
+        )
+        with pytest.raises(SignatureVerificationError):
+            await event_handler.handle_async(body, sig_header)
+
+        callback.assert_not_called()
 
     @pytest.mark.anyio
     async def test_handle_async_awaits_callback_across_a_yield(
