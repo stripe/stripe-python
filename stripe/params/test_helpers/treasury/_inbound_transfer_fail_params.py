@@ -22,3 +22,29 @@ class InboundTransferFailParamsFailureDetails(TypedDict):
     """
     Reason for the failure.
     """
+    network_details: NotRequired[
+        "InboundTransferFailParamsFailureDetailsNetworkDetails"
+    ]
+    """
+    Network specific details for the failure.
+    """
+
+
+class InboundTransferFailParamsFailureDetailsNetworkDetails(TypedDict):
+    ach: NotRequired[
+        "InboundTransferFailParamsFailureDetailsNetworkDetailsAch"
+    ]
+    """
+    ACH network failure details.
+    """
+    type: Literal["ach"]
+    """
+    The network used to transfer funds.
+    """
+
+
+class InboundTransferFailParamsFailureDetailsNetworkDetailsAch(TypedDict):
+    return_code: str
+    """
+    NACHA ACH return code.
+    """

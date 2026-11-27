@@ -72,7 +72,7 @@ class InvoiceItemCreateParams(RequestOptions):
     """
     subscription: NotRequired[str]
     """
-    The ID of a subscription to add this invoice item to. When left blank, the invoice item is added to the next upcoming scheduled invoice. When set, scheduled invoices for subscriptions other than the specified subscription will ignore the invoice item. Use this when you want to express that an invoice item has been accrued within the context of a particular subscription.
+    The ID of a subscription to add this invoice item to. When left blank, the invoice item is added to the next upcoming scheduled invoice. When set, scheduled invoices for subscriptions other than the specified subscription will ignore the invoice item. Use this when you want to express that an invoice item has been accrued within the context of a particular subscription. You can use this parameter with either `customer` or `customer_account`. The subscription must belong to the customer you specify.
     """
     tax_behavior: NotRequired[
         "Literal['exclusive', 'inclusive', 'unspecified']|str"

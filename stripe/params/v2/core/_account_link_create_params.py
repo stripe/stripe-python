@@ -18,6 +18,12 @@ class AccountLinkCreateParams(TypedDict):
 
 
 class AccountLinkCreateParamsUseCase(TypedDict):
+    account_dashboard: NotRequired[
+        "AccountLinkCreateParamsUseCaseAccountDashboard"
+    ]
+    """
+    Hash containing configuration options for an Account Link that provides access to the account's Stripe-hosted Dashboard.
+    """
     account_onboarding: NotRequired[
         "AccountLinkCreateParamsUseCaseAccountOnboarding"
     ]
@@ -28,9 +34,20 @@ class AccountLinkCreateParamsUseCase(TypedDict):
     """
     Hash containing configuration options for an Account Link that updates an existing account.
     """
-    type: Union[Literal["account_onboarding", "account_update"], str]
+    type: Union[
+        Literal["account_dashboard", "account_onboarding", "account_update"],
+        str,
+    ]
     """
     Open Enum. The type of Account Link the user is requesting.
+    """
+
+
+class AccountLinkCreateParamsUseCaseAccountDashboard(TypedDict):
+    refresh_url: str
+    """
+    The URL to redirect to if the Account Link has expired or has already
+    been used. Authenticate the user before generating a replacement link.
     """
 
 
