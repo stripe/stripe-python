@@ -60,7 +60,7 @@ class AuthorizationCreateParams(TypedDict):
     """
     merchant_data: NotRequired["AuthorizationCreateParamsMerchantData"]
     """
-    Details about the seller (grocery store, e-commerce website, etc.) where the card authorization happened.
+    Details about the seller (grocery store, e-commerce website, etc.) where the card authorization happened. Provide `merchant_data.state` and `merchant_data.postal_code` only if `merchant_data.country` is `US` or `CA`, or they will be ignored.
     """
     network_data: NotRequired["AuthorizationCreateParamsNetworkData"]
     """

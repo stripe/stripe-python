@@ -2572,6 +2572,7 @@ class Session(
     locale: Optional[
         Union[
             Literal[
+                "ar",
                 "auto",
                 "bg",
                 "cs",
@@ -2587,6 +2588,7 @@ class Session(
                 "fil",
                 "fr",
                 "fr-CA",
+                "he",
                 "hi-IN",
                 "hr",
                 "hu",
@@ -3079,7 +3081,7 @@ class Session(
         """
         Updates a Checkout Session object.
 
-        Related guide: [Dynamically update a Checkout Session](https://docs.stripe.com/payments/advanced/dynamic-updates)
+        Related guide: [Dynamically update a Checkout Session](https://docs.stripe.com/payments/checkout/dynamic-updates)
         """
         url = "%s/%s" % (cls.class_url(), sanitize_id(id))
         return cast(
@@ -3098,7 +3100,7 @@ class Session(
         """
         Updates a Checkout Session object.
 
-        Related guide: [Dynamically update a Checkout Session](https://docs.stripe.com/payments/advanced/dynamic-updates)
+        Related guide: [Dynamically update a Checkout Session](https://docs.stripe.com/payments/checkout/dynamic-updates)
         """
         url = "%s/%s" % (cls.class_url(), sanitize_id(id))
         return cast(

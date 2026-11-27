@@ -303,7 +303,7 @@ class Authentication(
             Union[Literal["01", "02", "03", "04", "05", "06"], str]
         ]
         """
-        The indicator provided to the issuer by Stripe in the AReq that indicates whether a challenge is requested for this Authentication. This indicator should match the flow_preference you specified but may be overridden (for compliance reasons for example).
+        The indicator provided to the issuer by Stripe in the AReq that indicates whether a challenge is requested for this Authentication. This indicator should match the flow_preference you specified but may be overridden (for compliance reasons or protocol version supportability for example).
         """
         rreq: Optional[str]
         """

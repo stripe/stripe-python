@@ -1856,7 +1856,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             cls, **params: Unpack["ConfirmationTokenCreateParams"]
         ) -> "ConfirmationToken":
             """
-            Creates a test mode Confirmation Token server side for your integration tests.
+            Creates a test Confirmation Token server side for your integration tests.
             """
             return cast(
                 "ConfirmationToken",
@@ -1872,7 +1872,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             cls, **params: Unpack["ConfirmationTokenCreateParams"]
         ) -> "ConfirmationToken":
             """
-            Creates a test mode Confirmation Token server side for your integration tests.
+            Creates a test Confirmation Token server side for your integration tests.
             """
             return cast(
                 "ConfirmationToken",

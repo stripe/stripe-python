@@ -180,6 +180,9 @@ if TYPE_CHECKING:
     from stripe.params.v2.core._account_list_params import (
         AccountListParams as AccountListParams,
     )
+    from stripe.params.v2.core._account_reject_params import (
+        AccountRejectParams as AccountRejectParams,
+    )
     from stripe.params.v2.core._account_retrieve_params import (
         AccountRetrieveParams as AccountRetrieveParams,
     )
@@ -244,6 +247,9 @@ if TYPE_CHECKING:
     )
     from stripe.params.v2.core._account_token_retrieve_params import (
         AccountTokenRetrieveParams as AccountTokenRetrieveParams,
+    )
+    from stripe.params.v2.core._account_unreject_params import (
+        AccountUnrejectParams as AccountUnrejectParams,
     )
     from stripe.params.v2.core._account_update_params import (
         AccountUpdateParams as AccountUpdateParams,
@@ -357,6 +363,7 @@ if TYPE_CHECKING:
         AccountUpdateParamsIdentityAttestationsTermsOfService as AccountUpdateParamsIdentityAttestationsTermsOfService,
         AccountUpdateParamsIdentityAttestationsTermsOfServiceAccount as AccountUpdateParamsIdentityAttestationsTermsOfServiceAccount,
         AccountUpdateParamsIdentityAttestationsTermsOfServiceCryptoMoneyManager as AccountUpdateParamsIdentityAttestationsTermsOfServiceCryptoMoneyManager,
+        AccountUpdateParamsIdentityAttestationsTermsOfServiceCryptoTransfersZerohashRecipient as AccountUpdateParamsIdentityAttestationsTermsOfServiceCryptoTransfersZerohashRecipient,
         AccountUpdateParamsIdentityAttestationsTermsOfServiceMoneyManager as AccountUpdateParamsIdentityAttestationsTermsOfServiceMoneyManager,
         AccountUpdateParamsIdentityBusinessDetails as AccountUpdateParamsIdentityBusinessDetails,
         AccountUpdateParamsIdentityBusinessDetailsAdditionalAddress as AccountUpdateParamsIdentityBusinessDetailsAdditionalAddress,
@@ -1124,6 +1131,10 @@ _import_map = {
         False,
     ),
     "AccountListParams": ("stripe.params.v2.core._account_list_params", False),
+    "AccountRejectParams": (
+        "stripe.params.v2.core._account_reject_params",
+        False,
+    ),
     "AccountRetrieveParams": (
         "stripe.params.v2.core._account_retrieve_params",
         False,
@@ -1358,6 +1369,10 @@ _import_map = {
     ),
     "AccountTokenRetrieveParams": (
         "stripe.params.v2.core._account_token_retrieve_params",
+        False,
+    ),
+    "AccountUnrejectParams": (
+        "stripe.params.v2.core._account_unreject_params",
         False,
     ),
     "AccountUpdateParams": (
@@ -1801,6 +1816,10 @@ _import_map = {
         False,
     ),
     "AccountUpdateParamsIdentityAttestationsTermsOfServiceCryptoMoneyManager": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsIdentityAttestationsTermsOfServiceCryptoTransfersZerohashRecipient": (
         "stripe.params.v2.core._account_update_params",
         False,
     ),

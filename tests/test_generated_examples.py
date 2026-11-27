@@ -43617,7 +43617,6 @@ class TestGeneratedExamples(object):
         client.v2.commerce.product_catalog.imports.create(
             {
                 "feed_type": "pricing",
-                "metadata": {"key": "metadata"},
                 "mode": "upsert",
             }
         )
@@ -43626,7 +43625,7 @@ class TestGeneratedExamples(object):
             path="/v2/commerce/product_catalog/imports",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"feed_type":"pricing","metadata":{"key":"metadata"},"mode":"upsert"}',
+            post_data='{"feed_type":"pricing","mode":"upsert"}',
             is_json=True,
         )
 
@@ -43750,6 +43749,53 @@ class TestGeneratedExamples(object):
         http_client_mock.assert_requested(
             "post",
             path="/v2/core/accounts/id_123/close",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="{}",
+            is_json=True,
+        )
+
+    def test_v2_core_account_post_4_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/core/accounts/id_123/reject",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.core.accounts.reject(
+            "id_123",
+            {"reason": "fraud_no_intent_to_fulfill"},
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/core/accounts/id_123/reject",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data='{"reason":"fraud_no_intent_to_fulfill"}',
+            is_json=True,
+        )
+
+    def test_v2_core_account_post_5_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/core/accounts/id_123/unreject",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.core.accounts.unreject("id_123")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/core/accounts/id_123/unreject",
             query_string="",
             api_base="https://api.stripe.com",
             post_data="{}",
@@ -45855,6 +45901,33 @@ class TestGeneratedExamples(object):
         http_client_mock.assert_requested(
             "post",
             path="/v2/money_management/payout_intents/id_123/confirm",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="{}",
+            is_json=True,
+        )
+
+    def test_inactive_api_operation_confirmation_required_error_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/core/accounts",
+            rbody='{"error":{"type":"inactive_api_operation_confirmation_required","code":"inactive_api_operation_confirmation_required"}}',
+            rcode=400,
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        try:
+            client.v2.core.accounts.create()
+        except _error.InactiveApiOperationConfirmationRequiredError:
+            pass
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/core/accounts",
             query_string="",
             api_base="https://api.stripe.com",
             post_data="{}",

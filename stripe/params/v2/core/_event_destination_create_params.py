@@ -61,6 +61,12 @@ class EventDestinationCreateParams(TypedDict):
     """
     For snapshot events only, the Stripe API version used to render event objects; do not provide this for thin events.
     """
+    status: NotRequired[Literal["disabled", "enabled"]]
+    """
+    The initial status of the destination. Defaults to `enabled`. A destination created as
+    `disabled` receives no delivery attempts until it is enabled. After creation, use the enable
+    and disable actions to change the status.
+    """
     type: Union[
         Literal["amazon_eventbridge", "azure_event_grid", "webhook_endpoint"],
         str,

@@ -15,7 +15,7 @@ class FinancialAddressCreateParams(TypedDict):
     """
     type: Union[Literal["bank_account"], str]
     """
-    The type of FinancialAddress to create. Must agree with which branch of financial_address_type_properties is set.
+    The type of FinancialAddress to create: bank_account or crypto_wallet. Must agree with which branch of financial_address_type_properties is set. Cash FinancialAddresses are managed by FundingIntents and cannot be created through this endpoint.
     """
 
 

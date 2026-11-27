@@ -631,7 +631,7 @@ class ConfigurationModifyParamsWifi(TypedDict):
 class ConfigurationModifyParamsWifiEnterpriseEapPeap(TypedDict):
     ca_certificate_file: NotRequired[str]
     """
-    A File ID representing a PEM file containing the server certificate
+    A File ID representing a PEM file containing the server certificate. The certificate is not currently used to validate the identity of the server, but will be used in a future device update.
     """
     password: str
     """

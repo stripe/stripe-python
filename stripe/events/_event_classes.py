@@ -34,6 +34,15 @@ if TYPE_CHECKING:
     from stripe.events._v1_application_fee_refund_updated_event import (
         V1ApplicationFeeRefundUpdatedEventNotification,
     )
+    from stripe.events._v1_apps_install_created_event import (
+        V1AppsInstallCreatedEventNotification,
+    )
+    from stripe.events._v1_apps_install_deleted_event import (
+        V1AppsInstallDeletedEventNotification,
+    )
+    from stripe.events._v1_apps_install_updated_event import (
+        V1AppsInstallUpdatedEventNotification,
+    )
     from stripe.events._v1_balance_available_event import (
         V1BalanceAvailableEventNotification,
     )
@@ -463,9 +472,6 @@ if TYPE_CHECKING:
     from stripe.events._v1_issuing_authorization_created_event import (
         V1IssuingAuthorizationCreatedEventNotification,
     )
-    from stripe.events._v1_issuing_authorization_request_event import (
-        V1IssuingAuthorizationRequestEventNotification,
-    )
     from stripe.events._v1_issuing_authorization_updated_event import (
         V1IssuingAuthorizationUpdatedEventNotification,
     )
@@ -829,8 +835,14 @@ if TYPE_CHECKING:
     from stripe.events._v2_core_account_closed_event import (
         V2CoreAccountClosedEventNotification,
     )
+    from stripe.events._v2_core_account_connected_event import (
+        V2CoreAccountConnectedEventNotification,
+    )
     from stripe.events._v2_core_account_created_event import (
         V2CoreAccountCreatedEventNotification,
+    )
+    from stripe.events._v2_core_account_disconnected_event import (
+        V2CoreAccountDisconnectedEventNotification,
     )
     from stripe.events._v2_core_account_including_configuration_customer_capability_status_updated_event import (
         V2CoreAccountIncludingConfigurationCustomerCapabilityStatusUpdatedEventNotification,
@@ -1038,6 +1050,18 @@ _V2_EVENT_CLASS_LOOKUP = {
     "v1.application_fee.refund.updated": (
         "stripe.events._v1_application_fee_refund_updated_event",
         "V1ApplicationFeeRefundUpdatedEvent",
+    ),
+    "v1.apps.install.created": (
+        "stripe.events._v1_apps_install_created_event",
+        "V1AppsInstallCreatedEvent",
+    ),
+    "v1.apps.install.deleted": (
+        "stripe.events._v1_apps_install_deleted_event",
+        "V1AppsInstallDeletedEvent",
+    ),
+    "v1.apps.install.updated": (
+        "stripe.events._v1_apps_install_updated_event",
+        "V1AppsInstallUpdatedEvent",
     ),
     "v1.balance.available": (
         "stripe.events._v1_balance_available_event",
@@ -1611,10 +1635,6 @@ _V2_EVENT_CLASS_LOOKUP = {
         "stripe.events._v1_issuing_authorization_created_event",
         "V1IssuingAuthorizationCreatedEvent",
     ),
-    "v1.issuing_authorization.request": (
-        "stripe.events._v1_issuing_authorization_request_event",
-        "V1IssuingAuthorizationRequestEvent",
-    ),
     "v1.issuing_authorization.updated": (
         "stripe.events._v1_issuing_authorization_updated_event",
         "V1IssuingAuthorizationUpdatedEvent",
@@ -2099,9 +2119,17 @@ _V2_EVENT_CLASS_LOOKUP = {
         "stripe.events._v2_core_account_closed_event",
         "V2CoreAccountClosedEvent",
     ),
+    "v2.core.account.connected": (
+        "stripe.events._v2_core_account_connected_event",
+        "V2CoreAccountConnectedEvent",
+    ),
     "v2.core.account.created": (
         "stripe.events._v2_core_account_created_event",
         "V2CoreAccountCreatedEvent",
+    ),
+    "v2.core.account.disconnected": (
+        "stripe.events._v2_core_account_disconnected_event",
+        "V2CoreAccountDisconnectedEvent",
     ),
     "v2.core.account[configuration.customer].capability_status_updated": (
         "stripe.events._v2_core_account_including_configuration_customer_capability_status_updated_event",
@@ -2377,6 +2405,18 @@ _V2_EVENT_NOTIFICATION_CLASS_LOOKUP = {
     "v1.application_fee.refund.updated": (
         "stripe.events._v1_application_fee_refund_updated_event",
         "V1ApplicationFeeRefundUpdatedEventNotification",
+    ),
+    "v1.apps.install.created": (
+        "stripe.events._v1_apps_install_created_event",
+        "V1AppsInstallCreatedEventNotification",
+    ),
+    "v1.apps.install.deleted": (
+        "stripe.events._v1_apps_install_deleted_event",
+        "V1AppsInstallDeletedEventNotification",
+    ),
+    "v1.apps.install.updated": (
+        "stripe.events._v1_apps_install_updated_event",
+        "V1AppsInstallUpdatedEventNotification",
     ),
     "v1.balance.available": (
         "stripe.events._v1_balance_available_event",
@@ -2950,10 +2990,6 @@ _V2_EVENT_NOTIFICATION_CLASS_LOOKUP = {
         "stripe.events._v1_issuing_authorization_created_event",
         "V1IssuingAuthorizationCreatedEventNotification",
     ),
-    "v1.issuing_authorization.request": (
-        "stripe.events._v1_issuing_authorization_request_event",
-        "V1IssuingAuthorizationRequestEventNotification",
-    ),
     "v1.issuing_authorization.updated": (
         "stripe.events._v1_issuing_authorization_updated_event",
         "V1IssuingAuthorizationUpdatedEventNotification",
@@ -3438,9 +3474,17 @@ _V2_EVENT_NOTIFICATION_CLASS_LOOKUP = {
         "stripe.events._v2_core_account_closed_event",
         "V2CoreAccountClosedEventNotification",
     ),
+    "v2.core.account.connected": (
+        "stripe.events._v2_core_account_connected_event",
+        "V2CoreAccountConnectedEventNotification",
+    ),
     "v2.core.account.created": (
         "stripe.events._v2_core_account_created_event",
         "V2CoreAccountCreatedEventNotification",
+    ),
+    "v2.core.account.disconnected": (
+        "stripe.events._v2_core_account_disconnected_event",
+        "V2CoreAccountDisconnectedEventNotification",
     ),
     "v2.core.account[configuration.customer].capability_status_updated": (
         "stripe.events._v2_core_account_including_configuration_customer_capability_status_updated_event",
@@ -3690,6 +3734,9 @@ ALL_EVENT_NOTIFICATIONS = Union[
     "V1ApplicationFeeCreatedEventNotification",
     "V1ApplicationFeeRefundedEventNotification",
     "V1ApplicationFeeRefundUpdatedEventNotification",
+    "V1AppsInstallCreatedEventNotification",
+    "V1AppsInstallDeletedEventNotification",
+    "V1AppsInstallUpdatedEventNotification",
     "V1BalanceAvailableEventNotification",
     "V1BalanceSettingsUpdatedEventNotification",
     "V1BillingAlertTriggeredEventNotification",
@@ -3833,7 +3880,6 @@ ALL_EVENT_NOTIFICATIONS = Union[
     "V1InvoiceVoidedEventNotification",
     "V1InvoiceWillBeDueEventNotification",
     "V1IssuingAuthorizationCreatedEventNotification",
-    "V1IssuingAuthorizationRequestEventNotification",
     "V1IssuingAuthorizationUpdatedEventNotification",
     "V1IssuingCardCreatedEventNotification",
     "V1IssuingCardholderCreatedEventNotification",
@@ -3955,7 +4001,9 @@ ALL_EVENT_NOTIFICATIONS = Union[
     "V2CommerceProductCatalogImportsSucceededEventNotification",
     "V2CommerceProductCatalogImportsSucceededWithErrorsEventNotification",
     "V2CoreAccountClosedEventNotification",
+    "V2CoreAccountConnectedEventNotification",
     "V2CoreAccountCreatedEventNotification",
+    "V2CoreAccountDisconnectedEventNotification",
     "V2CoreAccountIncludingConfigurationCustomerCapabilityStatusUpdatedEventNotification",
     "V2CoreAccountIncludingConfigurationCustomerUpdatedEventNotification",
     "V2CoreAccountIncludingConfigurationMerchantCapabilityStatusUpdatedEventNotification",
