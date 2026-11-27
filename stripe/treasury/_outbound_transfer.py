@@ -156,6 +156,23 @@ class OutboundTransfer(
         }
 
     class ReturnedDetails(StripeObject):
+        class NetworkDetails(StripeObject):
+            class Ach(StripeObject):
+                return_code: Optional[str]
+                """
+                NACHA ACH return code.
+                """
+                return_reason: Optional[str]
+                """
+                NACHA ACH return reason.
+                """
+
+            ach: Optional[Ach]
+            """
+            ACH return details.
+            """
+            _inner_class_types = {"ach": Ach}
+
         code: Union[
             Literal[
                 "account_closed",
@@ -174,10 +191,15 @@ class OutboundTransfer(
         """
         Reason for the return.
         """
+        network_details: Optional[NetworkDetails]
+        """
+        Money movement network-specific details regarding the failure.
+        """
         transaction: ExpandableField["Transaction"]
         """
         The Transaction associated with this object.
         """
+        _inner_class_types = {"network_details": NetworkDetails}
 
     class StatusTransitions(StripeObject):
         canceled_at: Optional[int]
@@ -528,7 +550,7 @@ class OutboundTransfer(
             **params: Unpack["OutboundTransferFailParams"],
         ) -> "OutboundTransfer":
             """
-            Transitions a test mode created OutboundTransfer to the failed status. The OutboundTransfer must already be in the processing state.
+            Transitions a test OutboundTransfer to the failed status. The OutboundTransfer must already be in the processing state.
             """
             return cast(
                 "OutboundTransfer",
@@ -549,7 +571,7 @@ class OutboundTransfer(
             **params: Unpack["OutboundTransferFailParams"],
         ) -> "OutboundTransfer":
             """
-            Transitions a test mode created OutboundTransfer to the failed status. The OutboundTransfer must already be in the processing state.
+            Transitions a test OutboundTransfer to the failed status. The OutboundTransfer must already be in the processing state.
             """
             ...
 
@@ -558,7 +580,7 @@ class OutboundTransfer(
             self, **params: Unpack["OutboundTransferFailParams"]
         ) -> "OutboundTransfer":
             """
-            Transitions a test mode created OutboundTransfer to the failed status. The OutboundTransfer must already be in the processing state.
+            Transitions a test OutboundTransfer to the failed status. The OutboundTransfer must already be in the processing state.
             """
             ...
 
@@ -567,7 +589,7 @@ class OutboundTransfer(
             self, **params: Unpack["OutboundTransferFailParams"]
         ) -> "OutboundTransfer":
             """
-            Transitions a test mode created OutboundTransfer to the failed status. The OutboundTransfer must already be in the processing state.
+            Transitions a test OutboundTransfer to the failed status. The OutboundTransfer must already be in the processing state.
             """
             return cast(
                 "OutboundTransfer",
@@ -590,7 +612,7 @@ class OutboundTransfer(
             **params: Unpack["OutboundTransferFailParams"],
         ) -> "OutboundTransfer":
             """
-            Transitions a test mode created OutboundTransfer to the failed status. The OutboundTransfer must already be in the processing state.
+            Transitions a test OutboundTransfer to the failed status. The OutboundTransfer must already be in the processing state.
             """
             return cast(
                 "OutboundTransfer",
@@ -611,7 +633,7 @@ class OutboundTransfer(
             **params: Unpack["OutboundTransferFailParams"],
         ) -> "OutboundTransfer":
             """
-            Transitions a test mode created OutboundTransfer to the failed status. The OutboundTransfer must already be in the processing state.
+            Transitions a test OutboundTransfer to the failed status. The OutboundTransfer must already be in the processing state.
             """
             ...
 
@@ -620,7 +642,7 @@ class OutboundTransfer(
             self, **params: Unpack["OutboundTransferFailParams"]
         ) -> "OutboundTransfer":
             """
-            Transitions a test mode created OutboundTransfer to the failed status. The OutboundTransfer must already be in the processing state.
+            Transitions a test OutboundTransfer to the failed status. The OutboundTransfer must already be in the processing state.
             """
             ...
 
@@ -629,7 +651,7 @@ class OutboundTransfer(
             self, **params: Unpack["OutboundTransferFailParams"]
         ) -> "OutboundTransfer":
             """
-            Transitions a test mode created OutboundTransfer to the failed status. The OutboundTransfer must already be in the processing state.
+            Transitions a test OutboundTransfer to the failed status. The OutboundTransfer must already be in the processing state.
             """
             return cast(
                 "OutboundTransfer",
@@ -652,7 +674,7 @@ class OutboundTransfer(
             **params: Unpack["OutboundTransferPostParams"],
         ) -> "OutboundTransfer":
             """
-            Transitions a test mode created OutboundTransfer to the posted status. The OutboundTransfer must already be in the processing state.
+            Transitions a test OutboundTransfer to the posted status. The OutboundTransfer must already be in the processing state.
             """
             return cast(
                 "OutboundTransfer",
@@ -673,7 +695,7 @@ class OutboundTransfer(
             **params: Unpack["OutboundTransferPostParams"],
         ) -> "OutboundTransfer":
             """
-            Transitions a test mode created OutboundTransfer to the posted status. The OutboundTransfer must already be in the processing state.
+            Transitions a test OutboundTransfer to the posted status. The OutboundTransfer must already be in the processing state.
             """
             ...
 
@@ -682,7 +704,7 @@ class OutboundTransfer(
             self, **params: Unpack["OutboundTransferPostParams"]
         ) -> "OutboundTransfer":
             """
-            Transitions a test mode created OutboundTransfer to the posted status. The OutboundTransfer must already be in the processing state.
+            Transitions a test OutboundTransfer to the posted status. The OutboundTransfer must already be in the processing state.
             """
             ...
 
@@ -691,7 +713,7 @@ class OutboundTransfer(
             self, **params: Unpack["OutboundTransferPostParams"]
         ) -> "OutboundTransfer":
             """
-            Transitions a test mode created OutboundTransfer to the posted status. The OutboundTransfer must already be in the processing state.
+            Transitions a test OutboundTransfer to the posted status. The OutboundTransfer must already be in the processing state.
             """
             return cast(
                 "OutboundTransfer",
@@ -714,7 +736,7 @@ class OutboundTransfer(
             **params: Unpack["OutboundTransferPostParams"],
         ) -> "OutboundTransfer":
             """
-            Transitions a test mode created OutboundTransfer to the posted status. The OutboundTransfer must already be in the processing state.
+            Transitions a test OutboundTransfer to the posted status. The OutboundTransfer must already be in the processing state.
             """
             return cast(
                 "OutboundTransfer",
@@ -735,7 +757,7 @@ class OutboundTransfer(
             **params: Unpack["OutboundTransferPostParams"],
         ) -> "OutboundTransfer":
             """
-            Transitions a test mode created OutboundTransfer to the posted status. The OutboundTransfer must already be in the processing state.
+            Transitions a test OutboundTransfer to the posted status. The OutboundTransfer must already be in the processing state.
             """
             ...
 
@@ -744,7 +766,7 @@ class OutboundTransfer(
             self, **params: Unpack["OutboundTransferPostParams"]
         ) -> "OutboundTransfer":
             """
-            Transitions a test mode created OutboundTransfer to the posted status. The OutboundTransfer must already be in the processing state.
+            Transitions a test OutboundTransfer to the posted status. The OutboundTransfer must already be in the processing state.
             """
             ...
 
@@ -753,7 +775,7 @@ class OutboundTransfer(
             self, **params: Unpack["OutboundTransferPostParams"]
         ) -> "OutboundTransfer":
             """
-            Transitions a test mode created OutboundTransfer to the posted status. The OutboundTransfer must already be in the processing state.
+            Transitions a test OutboundTransfer to the posted status. The OutboundTransfer must already be in the processing state.
             """
             return cast(
                 "OutboundTransfer",
@@ -776,7 +798,7 @@ class OutboundTransfer(
             **params: Unpack["OutboundTransferReturnOutboundTransferParams"],
         ) -> "OutboundTransfer":
             """
-            Transitions a test mode created OutboundTransfer to the returned status. The OutboundTransfer must already be in the processing state.
+            Transitions a test OutboundTransfer to the returned status. The OutboundTransfer must already be in the posted state.
             """
             return cast(
                 "OutboundTransfer",
@@ -797,7 +819,7 @@ class OutboundTransfer(
             **params: Unpack["OutboundTransferReturnOutboundTransferParams"],
         ) -> "OutboundTransfer":
             """
-            Transitions a test mode created OutboundTransfer to the returned status. The OutboundTransfer must already be in the processing state.
+            Transitions a test OutboundTransfer to the returned status. The OutboundTransfer must already be in the posted state.
             """
             ...
 
@@ -807,7 +829,7 @@ class OutboundTransfer(
             **params: Unpack["OutboundTransferReturnOutboundTransferParams"],
         ) -> "OutboundTransfer":
             """
-            Transitions a test mode created OutboundTransfer to the returned status. The OutboundTransfer must already be in the processing state.
+            Transitions a test OutboundTransfer to the returned status. The OutboundTransfer must already be in the posted state.
             """
             ...
 
@@ -817,7 +839,7 @@ class OutboundTransfer(
             **params: Unpack["OutboundTransferReturnOutboundTransferParams"],
         ) -> "OutboundTransfer":
             """
-            Transitions a test mode created OutboundTransfer to the returned status. The OutboundTransfer must already be in the processing state.
+            Transitions a test OutboundTransfer to the returned status. The OutboundTransfer must already be in the posted state.
             """
             return cast(
                 "OutboundTransfer",
@@ -840,7 +862,7 @@ class OutboundTransfer(
             **params: Unpack["OutboundTransferReturnOutboundTransferParams"],
         ) -> "OutboundTransfer":
             """
-            Transitions a test mode created OutboundTransfer to the returned status. The OutboundTransfer must already be in the processing state.
+            Transitions a test OutboundTransfer to the returned status. The OutboundTransfer must already be in the posted state.
             """
             return cast(
                 "OutboundTransfer",
@@ -861,7 +883,7 @@ class OutboundTransfer(
             **params: Unpack["OutboundTransferReturnOutboundTransferParams"],
         ) -> "OutboundTransfer":
             """
-            Transitions a test mode created OutboundTransfer to the returned status. The OutboundTransfer must already be in the processing state.
+            Transitions a test OutboundTransfer to the returned status. The OutboundTransfer must already be in the posted state.
             """
             ...
 
@@ -871,7 +893,7 @@ class OutboundTransfer(
             **params: Unpack["OutboundTransferReturnOutboundTransferParams"],
         ) -> "OutboundTransfer":
             """
-            Transitions a test mode created OutboundTransfer to the returned status. The OutboundTransfer must already be in the processing state.
+            Transitions a test OutboundTransfer to the returned status. The OutboundTransfer must already be in the posted state.
             """
             ...
 
@@ -881,7 +903,7 @@ class OutboundTransfer(
             **params: Unpack["OutboundTransferReturnOutboundTransferParams"],
         ) -> "OutboundTransfer":
             """
-            Transitions a test mode created OutboundTransfer to the returned status. The OutboundTransfer must already be in the processing state.
+            Transitions a test OutboundTransfer to the returned status. The OutboundTransfer must already be in the posted state.
             """
             return cast(
                 "OutboundTransfer",
@@ -904,7 +926,7 @@ class OutboundTransfer(
             **params: Unpack["OutboundTransferUpdateParams"],
         ) -> "OutboundTransfer":
             """
-            Updates a test mode created OutboundTransfer with tracking details. The OutboundTransfer must not be cancelable, and cannot be in the canceled or failed states.
+            Updates a test OutboundTransfer with tracking details. The OutboundTransfer must not be cancelable, and can't be in the canceled or failed states.
             """
             return cast(
                 "OutboundTransfer",
@@ -925,7 +947,7 @@ class OutboundTransfer(
             **params: Unpack["OutboundTransferUpdateParams"],
         ) -> "OutboundTransfer":
             """
-            Updates a test mode created OutboundTransfer with tracking details. The OutboundTransfer must not be cancelable, and cannot be in the canceled or failed states.
+            Updates a test OutboundTransfer with tracking details. The OutboundTransfer must not be cancelable, and can't be in the canceled or failed states.
             """
             ...
 
@@ -934,7 +956,7 @@ class OutboundTransfer(
             self, **params: Unpack["OutboundTransferUpdateParams"]
         ) -> "OutboundTransfer":
             """
-            Updates a test mode created OutboundTransfer with tracking details. The OutboundTransfer must not be cancelable, and cannot be in the canceled or failed states.
+            Updates a test OutboundTransfer with tracking details. The OutboundTransfer must not be cancelable, and can't be in the canceled or failed states.
             """
             ...
 
@@ -943,7 +965,7 @@ class OutboundTransfer(
             self, **params: Unpack["OutboundTransferUpdateParams"]
         ) -> "OutboundTransfer":
             """
-            Updates a test mode created OutboundTransfer with tracking details. The OutboundTransfer must not be cancelable, and cannot be in the canceled or failed states.
+            Updates a test OutboundTransfer with tracking details. The OutboundTransfer must not be cancelable, and can't be in the canceled or failed states.
             """
             return cast(
                 "OutboundTransfer",
@@ -966,7 +988,7 @@ class OutboundTransfer(
             **params: Unpack["OutboundTransferUpdateParams"],
         ) -> "OutboundTransfer":
             """
-            Updates a test mode created OutboundTransfer with tracking details. The OutboundTransfer must not be cancelable, and cannot be in the canceled or failed states.
+            Updates a test OutboundTransfer with tracking details. The OutboundTransfer must not be cancelable, and can't be in the canceled or failed states.
             """
             return cast(
                 "OutboundTransfer",
@@ -987,7 +1009,7 @@ class OutboundTransfer(
             **params: Unpack["OutboundTransferUpdateParams"],
         ) -> "OutboundTransfer":
             """
-            Updates a test mode created OutboundTransfer with tracking details. The OutboundTransfer must not be cancelable, and cannot be in the canceled or failed states.
+            Updates a test OutboundTransfer with tracking details. The OutboundTransfer must not be cancelable, and can't be in the canceled or failed states.
             """
             ...
 
@@ -996,7 +1018,7 @@ class OutboundTransfer(
             self, **params: Unpack["OutboundTransferUpdateParams"]
         ) -> "OutboundTransfer":
             """
-            Updates a test mode created OutboundTransfer with tracking details. The OutboundTransfer must not be cancelable, and cannot be in the canceled or failed states.
+            Updates a test OutboundTransfer with tracking details. The OutboundTransfer must not be cancelable, and can't be in the canceled or failed states.
             """
             ...
 
@@ -1005,7 +1027,7 @@ class OutboundTransfer(
             self, **params: Unpack["OutboundTransferUpdateParams"]
         ) -> "OutboundTransfer":
             """
-            Updates a test mode created OutboundTransfer with tracking details. The OutboundTransfer must not be cancelable, and cannot be in the canceled or failed states.
+            Updates a test OutboundTransfer with tracking details. The OutboundTransfer must not be cancelable, and can't be in the canceled or failed states.
             """
             return cast(
                 "OutboundTransfer",

@@ -12,6 +12,7 @@ from typing import ClassVar, Optional, Union, cast, overload
 from typing_extensions import Literal, Type, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe._application import Application
     from stripe._balance_transaction import BalanceTransaction
     from stripe._charge import Charge
     from stripe._customer import Customer
@@ -66,6 +67,16 @@ class Refund(
 
         class AuBankTransfer(StripeObject):
             pass
+
+        class Bizum(StripeObject):
+            reference: Optional[str]
+            """
+            The reference assigned to the refund.
+            """
+            reference_status: Optional[str]
+            """
+            Status of the reference on the refund. This can be `pending`, `available` or `unavailable`.
+            """
 
         class Blik(StripeObject):
             network_decline_code: Optional[str]
@@ -269,6 +280,16 @@ class Refund(
         class Twint(StripeObject):
             pass
 
+        class Upi(StripeObject):
+            reference: Optional[str]
+            """
+            The reference assigned to the refund.
+            """
+            reference_status: Optional[str]
+            """
+            Status of the reference on the refund. This can be `pending`, `available` or `unavailable`.
+            """
+
         class UsBankTransfer(StripeObject):
             reference: Optional[str]
             """
@@ -291,6 +312,7 @@ class Refund(
         alma: Optional[Alma]
         amazon_pay: Optional[AmazonPay]
         au_bank_transfer: Optional[AuBankTransfer]
+        bizum: Optional[Bizum]
         blik: Optional[Blik]
         br_bank_transfer: Optional[BrBankTransfer]
         card: Optional[Card]
@@ -322,6 +344,7 @@ class Refund(
         """
         The type of transaction-specific details of the payment method used in the refund (e.g., `card`). An additional hash is included on `destination_details` with a name matching this value. It contains information specific to the refund transaction.
         """
+        upi: Optional[Upi]
         us_bank_transfer: Optional[UsBankTransfer]
         wechat_pay: Optional[WechatPay]
         zip: Optional[Zip]
@@ -332,6 +355,7 @@ class Refund(
             "alma": Alma,
             "amazon_pay": AmazonPay,
             "au_bank_transfer": AuBankTransfer,
+            "bizum": Bizum,
             "blik": Blik,
             "br_bank_transfer": BrBankTransfer,
             "card": Card,
@@ -359,6 +383,7 @@ class Refund(
             "swish": Swish,
             "th_bank_transfer": ThBankTransfer,
             "twint": Twint,
+            "upi": Upi,
             "us_bank_transfer": UsBankTransfer,
             "wechat_pay": WechatPay,
             "zip": Zip,
@@ -403,6 +428,10 @@ class Refund(
     amount: int
     """
     Amount, in cents (or local equivalent).
+    """
+    application: Optional[ExpandableField["Application"]]
+    """
+    ID of the Connect application that created the refund. This can differ from the application on the associated Charge or PaymentIntent. A null value does not necessarily mean the refund was created without a Connect application.
     """
     balance_transaction: Optional[ExpandableField["BalanceTransaction"]]
     """

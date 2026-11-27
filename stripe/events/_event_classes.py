@@ -877,6 +877,21 @@ if TYPE_CHECKING:
     from stripe.events._v2_core_account_updated_event import (
         V2CoreAccountUpdatedEventNotification,
     )
+    from stripe.events._v2_core_claimable_sandbox_claimed_event import (
+        V2CoreClaimableSandboxClaimedEventNotification,
+    )
+    from stripe.events._v2_core_claimable_sandbox_created_event import (
+        V2CoreClaimableSandboxCreatedEventNotification,
+    )
+    from stripe.events._v2_core_claimable_sandbox_expired_event import (
+        V2CoreClaimableSandboxExpiredEventNotification,
+    )
+    from stripe.events._v2_core_claimable_sandbox_expiring_event import (
+        V2CoreClaimableSandboxExpiringEventNotification,
+    )
+    from stripe.events._v2_core_claimable_sandbox_updated_event import (
+        V2CoreClaimableSandboxUpdatedEventNotification,
+    )
     from stripe.events._v2_core_event_destination_ping_event import (
         V2CoreEventDestinationPingEventNotification,
     )
@@ -2147,6 +2162,26 @@ _V2_EVENT_CLASS_LOOKUP = {
     "v2.core.account.updated": (
         "stripe.events._v2_core_account_updated_event",
         "V2CoreAccountUpdatedEvent",
+    ),
+    "v2.core.claimable_sandbox.claimed": (
+        "stripe.events._v2_core_claimable_sandbox_claimed_event",
+        "V2CoreClaimableSandboxClaimedEvent",
+    ),
+    "v2.core.claimable_sandbox.created": (
+        "stripe.events._v2_core_claimable_sandbox_created_event",
+        "V2CoreClaimableSandboxCreatedEvent",
+    ),
+    "v2.core.claimable_sandbox.expired": (
+        "stripe.events._v2_core_claimable_sandbox_expired_event",
+        "V2CoreClaimableSandboxExpiredEvent",
+    ),
+    "v2.core.claimable_sandbox.expiring": (
+        "stripe.events._v2_core_claimable_sandbox_expiring_event",
+        "V2CoreClaimableSandboxExpiringEvent",
+    ),
+    "v2.core.claimable_sandbox.updated": (
+        "stripe.events._v2_core_claimable_sandbox_updated_event",
+        "V2CoreClaimableSandboxUpdatedEvent",
     ),
     "v2.core.event_destination.ping": (
         "stripe.events._v2_core_event_destination_ping_event",
@@ -3467,6 +3502,26 @@ _V2_EVENT_NOTIFICATION_CLASS_LOOKUP = {
         "stripe.events._v2_core_account_updated_event",
         "V2CoreAccountUpdatedEventNotification",
     ),
+    "v2.core.claimable_sandbox.claimed": (
+        "stripe.events._v2_core_claimable_sandbox_claimed_event",
+        "V2CoreClaimableSandboxClaimedEventNotification",
+    ),
+    "v2.core.claimable_sandbox.created": (
+        "stripe.events._v2_core_claimable_sandbox_created_event",
+        "V2CoreClaimableSandboxCreatedEventNotification",
+    ),
+    "v2.core.claimable_sandbox.expired": (
+        "stripe.events._v2_core_claimable_sandbox_expired_event",
+        "V2CoreClaimableSandboxExpiredEventNotification",
+    ),
+    "v2.core.claimable_sandbox.expiring": (
+        "stripe.events._v2_core_claimable_sandbox_expiring_event",
+        "V2CoreClaimableSandboxExpiringEventNotification",
+    ),
+    "v2.core.claimable_sandbox.updated": (
+        "stripe.events._v2_core_claimable_sandbox_updated_event",
+        "V2CoreClaimableSandboxUpdatedEventNotification",
+    ),
     "v2.core.event_destination.ping": (
         "stripe.events._v2_core_event_destination_ping_event",
         "V2CoreEventDestinationPingEventNotification",
@@ -3916,6 +3971,11 @@ ALL_EVENT_NOTIFICATIONS = Union[
     "V2CoreAccountPersonDeletedEventNotification",
     "V2CoreAccountPersonUpdatedEventNotification",
     "V2CoreAccountUpdatedEventNotification",
+    "V2CoreClaimableSandboxClaimedEventNotification",
+    "V2CoreClaimableSandboxCreatedEventNotification",
+    "V2CoreClaimableSandboxExpiredEventNotification",
+    "V2CoreClaimableSandboxExpiringEventNotification",
+    "V2CoreClaimableSandboxUpdatedEventNotification",
     "V2CoreEventDestinationPingEventNotification",
     "V2MoneyManagementAdjustmentCreatedEventNotification",
     "V2MoneyManagementFinancialAccountCreatedEventNotification",

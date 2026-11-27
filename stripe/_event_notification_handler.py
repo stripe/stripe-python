@@ -909,6 +909,21 @@ if TYPE_CHECKING:
     from stripe.events._v2_core_account_updated_event import (
         V2CoreAccountUpdatedEventNotification,
     )
+    from stripe.events._v2_core_claimable_sandbox_claimed_event import (
+        V2CoreClaimableSandboxClaimedEventNotification,
+    )
+    from stripe.events._v2_core_claimable_sandbox_created_event import (
+        V2CoreClaimableSandboxCreatedEventNotification,
+    )
+    from stripe.events._v2_core_claimable_sandbox_expired_event import (
+        V2CoreClaimableSandboxExpiredEventNotification,
+    )
+    from stripe.events._v2_core_claimable_sandbox_expiring_event import (
+        V2CoreClaimableSandboxExpiringEventNotification,
+    )
+    from stripe.events._v2_core_claimable_sandbox_updated_event import (
+        V2CoreClaimableSandboxUpdatedEventNotification,
+    )
     from stripe.events._v2_core_event_destination_ping_event import (
         V2CoreEventDestinationPingEventNotification,
     )
@@ -4919,6 +4934,71 @@ class _BaseEventNotificationHandler(Generic[CallbackReturn, PreHandleReturn]):
         """
         self._register(
             "v2.core.account.updated",
+            func,
+        )
+        return func
+
+    def on_v2_core_claimable_sandbox_claimed(
+        self,
+        func: "Callable[[V2CoreClaimableSandboxClaimedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V2CoreClaimableSandboxClaimedEvent` (`v2.core.claimable_sandbox.claimed`) event notification.
+        """
+        self._register(
+            "v2.core.claimable_sandbox.claimed",
+            func,
+        )
+        return func
+
+    def on_v2_core_claimable_sandbox_created(
+        self,
+        func: "Callable[[V2CoreClaimableSandboxCreatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V2CoreClaimableSandboxCreatedEvent` (`v2.core.claimable_sandbox.created`) event notification.
+        """
+        self._register(
+            "v2.core.claimable_sandbox.created",
+            func,
+        )
+        return func
+
+    def on_v2_core_claimable_sandbox_expired(
+        self,
+        func: "Callable[[V2CoreClaimableSandboxExpiredEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V2CoreClaimableSandboxExpiredEvent` (`v2.core.claimable_sandbox.expired`) event notification.
+        """
+        self._register(
+            "v2.core.claimable_sandbox.expired",
+            func,
+        )
+        return func
+
+    def on_v2_core_claimable_sandbox_expiring(
+        self,
+        func: "Callable[[V2CoreClaimableSandboxExpiringEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V2CoreClaimableSandboxExpiringEvent` (`v2.core.claimable_sandbox.expiring`) event notification.
+        """
+        self._register(
+            "v2.core.claimable_sandbox.expiring",
+            func,
+        )
+        return func
+
+    def on_v2_core_claimable_sandbox_updated(
+        self,
+        func: "Callable[[V2CoreClaimableSandboxUpdatedEventNotification, StripeClient], CallbackReturn]",
+    ):
+        """
+        Registers a callback for the `V2CoreClaimableSandboxUpdatedEvent` (`v2.core.claimable_sandbox.updated`) event notification.
+        """
+        self._register(
+            "v2.core.claimable_sandbox.updated",
             func,
         )
         return func

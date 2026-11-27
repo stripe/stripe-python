@@ -1,7 +1,7 @@
+import importlib
 import io
 import base64
 import json
-import sys
 import threading
 from typing import Any, Callable, Dict, List, Optional
 from unittest.mock import MagicMock, Mock, call, patch
@@ -9,10 +9,7 @@ from unittest.mock import MagicMock, Mock, call, patch
 import pytest
 from typing_extensions import Type
 
-if sys.version_info >= (3, 8):
-    from unittest.mock import AsyncMock
-else:
-    from mock import AsyncMock
+from unittest.mock import AsyncMock
 
 from contextlib import contextmanager
 
@@ -44,7 +41,15 @@ def mocked_request_lib():
 
 
 SUPPORTED_LIBS = frozenset(
-    ("google.appengine.api", "requests", "pycurl", "httpx", "aiohttp", "anyio")
+    (
+        "google.appengine.api",
+        "requests",
+        "pycurl",
+        "httpx2",
+        "httpx",  # TODO: (DEVSDK-3427) drop in the next major version.
+        "aiohttp",
+        "anyio",
+    )
 )
 
 
@@ -108,10 +113,15 @@ class TestImports:
     @pytest.mark.parametrize(
         ["available_libs", "expected"],
         [
-            # needs both httpx and anyio
+            # TODO: (DEVSDK-3427) delete the httpx-only cases in the next major version.
+            # needs both httpx2 (or httpx) and anyio
+            [["httpx2"], NoImportFoundAsyncClient],
             [["httpx"], NoImportFoundAsyncClient],
             [["anyio"], NoImportFoundAsyncClient],
+            [["httpx2", "anyio"], HTTPXClient],
             [["httpx", "anyio"], HTTPXClient],
+            [["httpx2", "httpx", "anyio"], HTTPXClient],
+            [["httpx", "anyio", "aiohttp"], HTTPXClient],
             # having only one required lib means we proceed
             [["anyio", "aiohttp"], AIOHTTPClient],
             [["aiohttp"], AIOHTTPClient],
@@ -1424,7 +1434,7 @@ class TestHTTPXClient(ClientTestBase):
 
     @pytest.fixture
     def request_mock(self, mocked_request_lib):
-        # Set up the httpx library mock structure
+        # Set up the httpx2 library mock structure
         async_client_instance = Mock()
         sync_client_instance = Mock()
 
@@ -1496,9 +1506,8 @@ class TestHTTPXClient(ClientTestBase):
             args = (method, url)
             kwargs = {
                 "headers": headers,
-                "data": post_data or {},
+                "content": post_data or None,
                 "timeout": timeout,
-                "proxies": {"http": "http://slap/", "https": "http://slap/"},
             }
 
             if is_streaming:
@@ -1525,9 +1534,8 @@ class TestHTTPXClient(ClientTestBase):
             args = (method, url)
             kwargs = {
                 "headers": headers,
-                "data": post_data,
+                "content": post_data or None,
                 "timeout": timeout,
-                "proxies": {"http": "http://slap/", "https": "http://slap/"},
             }
 
             if is_streaming:
@@ -1830,6 +1838,62 @@ class TestHTTPXClientRetryBehavior(TestHTTPXClient):
 
     def test_timeout_async(self):
         pass
+
+
+class TestHTTPXClientTimeout:
+    @pytest.fixture(params=["httpx2", "httpx"])
+    def lib(self, request):
+        return importlib.import_module(request.param)
+
+    @pytest.fixture
+    def other_lib(self, lib):
+        name = "httpx" if lib.__name__ == "httpx2" else "httpx2"
+        return importlib.import_module(name)
+
+    @pytest.mark.parametrize("timeout", [None, 5, 2.5, 80])
+    def test_numeric_timeout_is_unchanged(self, lib, timeout):
+        client = HTTPXClient(timeout=timeout, _lib=lib)
+
+        assert client._timeout == timeout
+
+    def test_timeout_from_same_lib_is_unchanged(self, lib):
+        timeout = lib.Timeout(30.0, connect=5.0)
+
+        client = HTTPXClient(timeout=timeout, _lib=lib)
+
+        assert client._timeout is timeout
+
+    def test_timeout_from_other_lib_is_converted(self, lib, other_lib):
+        timeout = other_lib.Timeout(30.0, connect=5.0, read=10.0)
+
+        client = HTTPXClient(timeout=timeout, _lib=lib)
+
+        assert isinstance(client._timeout, lib.Timeout)
+        assert client._timeout == lib.Timeout(30.0, connect=5.0, read=10.0)
+
+    @pytest.mark.anyio
+    async def test_converted_timeout_is_accepted_by_request(
+        self, lib, other_lib
+    ):
+        seen = {}
+
+        def handler(request):
+            seen.update(request.extensions["timeout"])
+            return lib.Response(200, request=request, content=b"{}")
+
+        client = HTTPXClient(
+            timeout=other_lib.Timeout(5.0, read=1.0), _lib=lib
+        )
+        client._client_async = lib.AsyncClient(
+            transport=lib.MockTransport(handler)
+        )
+
+        _, status, _ = await client.request_async(
+            "get", "https://api.stripe.com/", {}, None
+        )
+
+        assert status == 200
+        assert seen == {"connect": 5.0, "read": 1.0, "write": 5.0, "pool": 5.0}
 
 
 class TestAIOHTTPClient(ClientTestBase):
@@ -2243,7 +2307,7 @@ class TestLiveHTTPClients:
     @pytest.mark.anyio
     async def test_httpx_request_async_https(self):
         """
-        Test to ensure that httpx https calls succeed by making a live test call
+        Test to ensure that httpx2 https calls succeed by making a live test call
         to the public stripe API.
         """
         method = "get"
