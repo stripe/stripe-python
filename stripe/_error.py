@@ -58,14 +58,14 @@ class StripeError(Exception):
     def __str__(self):
         msg = self._message or "<empty message>"
         if self.request_id is not None:
-            return "Request {0}: {1}".format(self.request_id, msg)
+            return "[{0}] {1}".format(self.request_id, msg)
         else:
             return msg
 
     # Returns the underlying `Exception` (base class) message, which is usually
     # the raw message returned by Stripe's API. This was previously available
-    # in python2 via `error.message`. Unlike `str(error)`, it omits "Request
-    # req_..." from the beginning of the string.
+    # in python2 via `error.message`. Unlike `str(error)`, it omits the "[req_...]"
+    # prefix from the beginning of the string.
     @property
     def user_message(self):
         return self._message
