@@ -215,6 +215,10 @@ class _APIRequestor(object):
         return self._options.stripe_account
 
     @property
+    def stripe_context(self):
+        return self._options.stripe_context
+
+    @property
     def stripe_version(self):
         return self._options.stripe_version
 
