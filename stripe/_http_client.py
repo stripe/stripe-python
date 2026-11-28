@@ -493,10 +493,8 @@ class HTTPClient(object):
 
     async def close_async(self):
         if self._async_fallback_client is not None:
-            return await self._async_fallback_client.close_async()
-        raise NotImplementedError(
-            "HTTPClient subclasses must implement `close_async`"
-        )
+            await self._async_fallback_client.close_async()
+        self.close()
 
     def sleep_async(self, secs: float) -> Awaitable[None]:
         if self._async_fallback_client is not None:
@@ -504,6 +502,20 @@ class HTTPClient(object):
         raise NotImplementedError(
             "HTTPClient subclasses must implement `sleep`"
         )
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type: Any, exc_val: Any, exc_tb: Any) -> None:
+        self.close()
+
+    async def __aenter__(self):
+        return self
+
+    async def __aexit__(
+        self, exc_type: Any, exc_val: Any, exc_tb: Any
+    ) -> None:
+        await self.close_async()
 
 
 class RequestsClient(HTTPClient):
@@ -695,6 +707,8 @@ class RequestsClient(HTTPClient):
     def close(self):
         if getattr(self._thread_local, "session", None) is not None:
             self._thread_local.session.close()
+        if self._async_fallback_client is not None:
+            self._async_fallback_client.close()
 
 
 class UrlFetchClient(HTTPClient):
@@ -826,7 +840,8 @@ class UrlFetchClient(HTTPClient):
         raise APIConnectionError(msg) from e
 
     def close(self):
-        pass
+        if self._async_fallback_client is not None:
+            self._async_fallback_client.close()
 
 
 def _assert_no_header_injection(headers: Mapping[str, str]) -> None:
@@ -1068,6 +1083,8 @@ class PycurlClient(HTTPClient):
         if curl is not None:
             curl.close()
             self._thread_local.curl = None
+        if self._async_fallback_client is not None:
+            self._async_fallback_client.close()
 
 
 class UrllibClient(HTTPClient):
@@ -1192,7 +1209,8 @@ class UrllibClient(HTTPClient):
         raise APIConnectionError(msg) from e
 
     def close(self):
-        pass
+        if self._async_fallback_client is not None:
+            self._async_fallback_client.close()
 
 
 def _get_httpx_async_mounts(
@@ -1417,9 +1435,23 @@ class HTTPXClient(HTTPClient):
     def close(self):
         if self._client is not None:
             self._client.close()
+        if hasattr(self, "_client_async") and not self._client_async.is_closed:
+            try:
+                loop = asyncio.get_running_loop()
+            except RuntimeError:
+                loop = None
+            if loop is not None and loop.is_running():
+                loop.create_task(self._client_async.aclose())
+            else:
+                try:
+                    asyncio.run(self._client_async.aclose())
+                except RuntimeError:
+                    pass
 
     async def close_async(self):
         await self._client_async.aclose()
+        if self._client is not None:
+            self._client.close()
 
 
 class AIOHTTPClient(HTTPClient):
@@ -1549,10 +1581,30 @@ class AIOHTTPClient(HTTPClient):
         return content, status_code, response_headers
 
     def close(self):
-        pass
+        if (
+            self._internally_managed_session
+            and self._cached_session is not None
+            and not self._cached_session.closed
+        ):
+            try:
+                loop = asyncio.get_running_loop()
+            except RuntimeError:
+                loop = None
+            if loop is not None and loop.is_running():
+                loop.create_task(self._cached_session.close())
+            else:
+                try:
+                    asyncio.run(self._cached_session.close())
+                except RuntimeError:
+                    pass
+        if self._async_fallback_client is not None:
+            self._async_fallback_client.close()
 
     async def close_async(self):
-        if self._internally_managed_session:
+        if (
+            self._internally_managed_session
+            and self._cached_session is not None
+        ):
             await self._session.close()
 
 
@@ -1581,8 +1633,11 @@ class NoImportFoundAsyncClient(HTTPClient):
     ):
         self.raise_async_client_import_error()
 
+    def close(self):
+        pass
+
     async def close_async(self):
-        self.raise_async_client_import_error()
+        pass
 
 
 # --- Client resolution ---

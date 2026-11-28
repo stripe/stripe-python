@@ -196,6 +196,7 @@ class StripeClient(object):
             max_network_retries=max_network_retries,
         )
 
+        self._owns_http_client = http_client is None
         if http_client is None:
             http_client = new_default_http_client(
                 async_fallback_client=new_http_client_async_fallback(
@@ -1244,3 +1245,25 @@ class StripeClient(object):
         return self.v1.webhook_endpoints
 
     # deprecated v1 services: The end of the section generated from our OpenAPI spec
+
+    def close(self) -> None:
+        if self._owns_http_client:
+            self._requestor.close()
+
+    async def close_async(self) -> None:
+        if self._owns_http_client:
+            await self._requestor.close_async()
+
+    def __enter__(self) -> "StripeClient":
+        return self
+
+    def __exit__(self, exc_type: Any, exc_val: Any, exc_tb: Any) -> None:
+        self.close()
+
+    async def __aenter__(self) -> "StripeClient":
+        return self
+
+    async def __aexit__(
+        self, exc_type: Any, exc_val: Any, exc_tb: Any
+    ) -> None:
+        await self.close_async()
