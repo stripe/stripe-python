@@ -312,6 +312,14 @@ class StripeClient(object):
         api_mode = get_api_mode(url_)
         base_address = params.pop("base", "api")
 
+        # we manually pass usage in event internals, so use those if available.
+        # Those are always lists. Any other `usage` (e.g. a SetupIntent's
+        # "off_session") is a real API param, and request_raw_async can't
+        # append "async" to it.
+        usage = ["raw_request"]
+        if isinstance(params.get("usage"), list):
+            usage = params.pop("usage")
+
         rbody, rcode, rheaders = await self._requestor.request_raw_async(
             method_,
             url_,
@@ -319,7 +327,7 @@ class StripeClient(object):
             options=options,
             base_address=base_address,
             api_mode=api_mode,
-            usage=["raw_request"],
+            usage=usage,
         )
 
         return self._requestor._interpret_response(

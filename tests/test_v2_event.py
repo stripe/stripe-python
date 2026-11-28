@@ -431,6 +431,45 @@ class TestV2Event(object):
         assert isinstance(meter, Meter)
         assert meter.event_name == "cool event"
 
+    @pytest.mark.anyio
+    async def test_async_fetches_send_usage_only_as_telemetry(
+        self,
+        http_client_mock: HTTPClientMock,
+        v2_payload_no_data,
+        v2_payload_with_data,
+        parse_event_notif: EventParser,
+    ):
+        path = "/v2/core/events/evt_234"
+        meter_path = "/v1/billing/meters/mtr_123"
+
+        # stubs only match requests without a query string, so a `usage`
+        # that leaks into the request params fails the fetch
+        http_client_mock.stub_request(
+            "get", path=path, rbody=v2_payload_with_data
+        )
+        http_client_mock.stub_request(
+            "get",
+            path=meter_path,
+            rbody=json.dumps({"id": "mtr_123", "object": "billing.meter"}),
+        )
+
+        event_notif = parse_event_notif(v2_payload_no_data)
+        assert event_notif.type == "v1.billing.meter.error_report_triggered"
+
+        event = await event_notif.fetch_event_async()
+        meter = await event_notif.fetch_related_object_async()
+
+        assert isinstance(event, V1BillingMeterErrorReportTriggeredEvent)
+        assert isinstance(meter, Meter)
+        http_client_mock.assert_requested(
+            "get",
+            path=path,
+            usage=["pushed_event_pull", "pushed_event_pull_async", "async"],
+        )
+        http_client_mock.assert_requested(
+            "get", path=meter_path, usage=["fetch_related_object", "async"]
+        )
+
     def test_related_object_retains_event_context(
         self, http_client_mock: HTTPClientMock
     ):
@@ -510,7 +549,6 @@ class TestV2Event(object):
         http_client_mock.stub_request(
             "get",
             path=path,
-            query_string="usage[0]=fetch_related_object",
             rbody=json.dumps({"id": "prod_shared", "object": "product"}),
         )
         http_client_mock.stub_request(
